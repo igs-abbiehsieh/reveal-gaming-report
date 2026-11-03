@@ -35,13 +35,14 @@ h2{font-size:48px;font-weight:900;color:var(--ink);margin:0;line-height:1.2}
 a{color:var(--gd)}
 
 /* 1 封面 */
-.cover{background:var(--g);color:#fff;padding:0 108px}
+.cover{background:#fff;color:var(--g);padding:0 108px}
+.cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:24px;background:var(--g)}
 .cover .k{position:absolute;top:252px;font-size:44px;font-weight:700;margin:0 0 0 -14px}
-.cover h1{position:absolute;top:322px;font-size:76px;font-weight:900;margin:0;line-height:1.2}
+.cover h1{position:absolute;top:322px;font-size:76px;font-weight:900;margin:0;line-height:1.2;color:var(--gd)}
 .cover .s{position:absolute;top:446px;font-size:42px;font-weight:700;margin:0}
-.cover .s i{font-style:normal;font-weight:400;opacity:.7;margin:0 12px}
+.cover .s i{font-style:normal;font-weight:400;color:var(--line);margin:0 12px}
 .cover .by{position:absolute;bottom:96px;font-size:22px;margin:0}
-.cover .by i{font-style:normal;opacity:.6;margin:0 10px}
+.cover .by i{font-style:normal;color:var(--line);margin:0 10px}
 .thanks h1{inset:0;display:flex;align-items:center;padding-left:108px;font-size:120px}
 .bk{margin-left:6px;font-size:20px;font-weight:700;color:var(--loss);border:2px solid var(--loss);border-radius:8px;padding:2px 12px}
 
