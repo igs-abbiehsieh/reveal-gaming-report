@@ -43,6 +43,9 @@ a{color:var(--gd)}
 .cover .s i{font-style:normal;font-weight:400;opacity:.7;margin:0 12px}
 .cover .by{position:absolute;bottom:96px;font-size:22px;margin:0}
 .cover .by i{font-style:normal;opacity:.6;margin:0 10px}
+.thanks h1{top:290px;font-size:120px}
+.thanks .s{top:460px;opacity:.85}
+.bk{margin-left:6px;font-size:20px;font-weight:700;color:var(--loss);border:2px solid var(--loss);border-radius:8px;padding:2px 12px}
 
 /* 2 市場三卡 */
 .c3{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:52px}
@@ -135,45 +138,45 @@ a{color:var(--gd)}
 .warn{color:var(--loss);font-weight:700}
 
 /* 10 計算器 */
-.calc{display:grid;grid-template-columns:420px 1fr;gap:28px;margin-top:26px}
-.panel{background:var(--card);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:18px;height:700px}
-.f label,.flab{display:block;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.calc{display:grid;grid-template-columns:380px 1fr;gap:28px;margin-top:26px}
+.panel{background:var(--card);border-radius:14px;padding:22px 22px;display:flex;flex-direction:column;gap:18px;height:712px}
+.f label,.flab{display:block;font-size:17.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.hint{display:block;color:var(--mu);font-size:14px;margin-top:6px;line-height:1.45}
-input[type=number]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--tx);font:inherit;font-size:18px;font-variant-numeric:tabular-nums}
+.hint{display:block;color:var(--mu);font-size:14.5px;margin-top:6px;line-height:1.45}
+input[type=number]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--tx);font:inherit;font-size:20px;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 .presets{display:flex;gap:8px;margin-top:6px}
-.presets button{font-size:15px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 14px;cursor:pointer}
+.presets button{font-size:16px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 14px;cursor:pointer}
 .presets button[aria-pressed=true]{background:var(--g);color:#fff;border-color:var(--g)}
 .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-.seg button{flex:1;border:0;border-left:1px solid var(--line);background:#fff;padding:7px 4px;line-height:1.3;cursor:pointer;font-size:16px;font-weight:700}
+.seg button{flex:1;border:0;border-left:1px solid var(--line);background:#fff;padding:7px 4px;line-height:1.3;cursor:pointer;font-size:17px;font-weight:700}
 .seg button:first-child{border-left:0}
-.seg button small{display:block;font-size:13px;font-weight:400;opacity:.85}
+.seg button small{display:block;font-size:14px;font-weight:400;opacity:.85}
 .seg button[aria-pressed=true]{background:var(--g);color:#fff}
 .advbtn{margin-top:auto;border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font-size:16px;font-weight:700;cursor:pointer;text-align:left}
-.res{display:flex;flex-direction:column;gap:16px;min-width:0}
+.res{display:flex;flex-direction:column;gap:14px;min-width:0}
 .verdict{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.verdict>div{padding:16px 22px;border-left:1px solid var(--line)}
+.verdict>div{padding:14px 22px;border-left:1px solid var(--line)}
 .verdict>div:first-child{border-left:0}
 .verdict>div:last-child{background:var(--card)}
-.who{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.who{font-size:19px;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--ink)}
 .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
-.big{font-size:42px;font-weight:900;line-height:1.15;margin:6px 0 2px}
-.sub{color:var(--mu);font-size:15px}
+.big{font-size:48px;font-weight:900;line-height:1.1;margin:4px 0 2px}
+.sub{color:var(--mu);font-size:16px}
 .loss{color:var(--loss)} .gain{color:var(--gd)}
 .tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ct{width:100%;border-collapse:collapse;font-size:16px;border:1px solid var(--line)}
-.ct th{color:#fff;font-weight:700;padding:8px 10px;text-align:left;font-size:16px}
+.ct{width:100%;border-collapse:collapse;font-size:18.5px;border:1px solid var(--line)}
+.ct th{color:#fff;font-weight:700;padding:9px 10px;text-align:left;font-size:17.5px}
 .ct th.r,.ct td.r{text-align:right}
-.ct td{padding:0 10px;height:31px;border-bottom:1px solid var(--line);white-space:nowrap}
-.ct td.ind{padding-left:22px}
+.ct td{padding:0 10px;height:36px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ct td.ind{padding-left:20px}
 .ct tr.k td{background:var(--card);font-weight:700}
 .ct tr.t td{background:var(--sand);font-weight:700}
 .ct tr.n td{background:var(--tot);font-weight:900}
 .ct tr.b td{color:transparent}
 .hps{background:var(--slate)} .haw{background:var(--g)}
-.calcnote{font-size:15px;color:var(--mu);margin:0;line-height:1.5}
-.adv{position:absolute;left:520px;right:72px;top:146px;height:700px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:24px 28px;z-index:3}
+.calcnote{font-size:16px;color:var(--mu);margin:0;line-height:1.5}
+.adv{position:absolute;left:480px;right:72px;top:146px;height:712px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:24px 28px;z-index:3}
 .adv[hidden]{display:none}
 .adv h3{margin:0 0 16px;font-size:24px;color:var(--ink)}
 .advgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 20px}
@@ -219,7 +222,6 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 </head>
 <body>
 <div class="stage" id="stage">
-
 <!-- 1 封面 -->
 <section class="slide cover" data-title="封面">
   <span class="tag">內部資料</span>
@@ -311,19 +313,79 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
   <span class="pg">5</span>
 </section>
 
-<!-- 6 每月獲利結構（固定情境，數字由計算器公式產生） -->
-<section class="slide s6" data-title="賽馬 PPGs：每月獲利結構試算">
+<!-- 6 每月獲利結構試算（計算器） -->
+<section class="slide" id="calc" data-title="賽馬 PPGs：每月獲利結構試算">
   <div class="hd"><span class="no">6</span><h2>賽馬 PPGs：每月獲利結構試算</h2></div>
-  <p class="kicker">共同入金 $600 萬／月、廣告 $80 萬；差異來自週轉、抽成與費用分配</p>
-  <table class="tb num">
-    <colgroup><col style="width:39%"><col style="width:30%"><col style="width:31%"></colgroup>
-    <thead><tr><th>月試算<i>｜</i>單位：萬美元</th><th>PS<i>｜</i>Potent</th><th>AW<i>｜</i>AmWest</th></tr></thead>
-    <tbody id="s6"></tbody>
-  </table>
-  <p class="callout" style="margin:10px 0 0 12px">此為附圖試算口徑，非完整淨利：未計自建人力、系統與企業所得稅。</p>
-  <button class="go" data-goto="calc">調整試算條件 →</button>
-  <p class="src">PS：按 GP 70% 整筆分潤；AW：NGR 12%／投注額底限 0.5%，設定費月攤 0（首年 $35 萬為預付分潤，可抵權利金）。<br>來源：內部白牌計算器與附圖；金額四捨五入。</p>
-  <span class="pg">6</span>
+  <div class="calc">
+    <div class="panel">
+      <div class="f">
+        <label for="deposit">月入金（USD）</label>
+        <input type="number" id="deposit" min="0" step="100000" inputmode="numeric">
+        <input type="range" id="depositR" min="500000" max="20000000" step="100000" aria-label="月入金滑桿">
+        <div class="presets" id="presets">
+          <button type="button" data-v="2000000">$200 萬</button>
+          <button type="button" data-v="6000000">$600 萬</button>
+          <button type="button" data-v="10000000">$1,000 萬</button>
+        </div>
+      </div>
+      <div class="f2">
+        <div class="f"><label for="ad">月廣告費</label><input type="number" id="ad" min="0" step="10000"></div>
+        <div class="f"><label for="staff">AW 自建人力與系統</label><input type="number" id="staff" min="0" step="10000"></div>
+      </div>
+      <div class="f">
+        <span class="flab" id="yrlab">AW 合約年度</span>
+        <div class="seg" role="group" aria-labelledby="yrlab">
+          <button type="button" id="y1">第 1 年<small>預付 $35 萬，可抵分潤</small></button>
+          <button type="button" id="y2">第 2–5 年<small>每年最低保證 $75 萬</small></button>
+        </div>
+        <small class="hint">年度保底以月平均近似：第 1 年每月至少 $29,167、第 2–5 年每月至少 $62,500；分潤超過不另付。</small>
+      </div>
+      <div class="f">
+        <span class="flab" id="awtlab">AW 分潤條件（NGR 分成／投注額底限）</span>
+        <div class="seg" role="group" aria-labelledby="awtlab" id="awTerm">
+          <button type="button" data-t="calc">計算器<small>12%／0.5%</small></button>
+          <button type="button" data-t="low">低費州<small>15%／0.75%</small></button>
+          <button type="button" data-t="high">高費州<small>12%／0.25%</small></button>
+        </div>
+        <small class="hint">低／高費州為 AW 非約束性 term sheet 條件，各州歸類待確認；以最終合約為準。</small>
+      </div>
+      <button type="button" class="advbtn" id="advBtn">進階假設（倍數、費率、PS 條款）…</button>
+    </div>
+    <div class="res">
+      <div class="verdict" aria-live="polite">
+        <div><div class="who"><span class="dot" style="background:var(--slate)"></span>PS 月淨利</div><div class="big num" id="psNet"></div><div class="sub num" id="psSub"></div></div>
+        <div><div class="who"><span class="dot" style="background:var(--g)"></span>AW 月淨利</div><div class="big num" id="awNet"></div><div class="sub num" id="awSub"></div></div>
+        <div><div class="who">AW − PS</div><div class="big num" id="diff"></div><div class="sub" id="diffSub"></div></div>
+      </div>
+      <div class="tables">
+        <table class="ct"><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
+        <table class="ct"><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
+      </div>
+      <p class="calcnote"><span class="warn">AW 尚未計入自建網站與人力成本（可在左側填入）</span>；淨利未計企業所得稅。廠商費率依原始文件，其餘為 TaDa 內部假設。</p>
+    </div>
+  </div>
+  <div class="adv" id="adv" hidden>
+    <h3>進階假設</h3>
+    <div class="advgrid">
+      <div class="f"><label for="psChurn">PS Handle 倍數</label><input type="number" id="psChurn" step="0.1" min="0"></div>
+      <div class="f"><label for="awChurn">AW Handle 倍數</label><input type="number" id="awChurn" step="0.1" min="0"></div>
+      <div class="f"><label for="promo">獎金、活動 %（佔入金）</label><input type="number" id="promo" step="0.1" min="0"></div>
+      <div class="f"><label for="cb">刷退、詐欺 %（佔入金）</label><input type="number" id="cb" step="0.1" min="0"></div>
+      <div class="f"><label for="proc">金流費率 %（佔入金）</label><input type="number" id="proc" step="0.01" min="0"></div>
+      <div class="f"><label for="gpRate">AW 遊戲商費率 %</label><input type="number" id="gpRate" step="0.1" min="0"></div>
+      <div class="f"><label for="kyc">KYC 月費</label><input type="number" id="kyc" step="1000" min="0"></div>
+      <div class="f"><label for="geo">Geolocation 月費</label><input type="number" id="geo" step="1000" min="0"></div>
+    </div>
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="psCliff">PS 級距整筆適用（GP 落在哪一級，整筆適用該級比例）；取消則改為累進。<span class="warn">整筆或累進待確認</span></label>
+      <label class="check"><input type="checkbox" id="psProc">PS 計入金流手續費（PS 條款附註 1 列為 Client 負擔）</label>
+      <label class="check"><input type="checkbox" id="psSingle">PS 單一州營運，設定費 5 折</label>
+      <label class="check"><input type="checkbox" id="psWaive">PS 年費豁免（12 個月中 7 個月 GP 超過 $100 萬）</label>
+      <label class="check"><input type="checkbox" id="psKyc">PS 另計 KYC／Geo（條款未載明，預設不計）</label>
+    </div>
+    <div class="advact"><button type="button" id="reset">還原預設值</button><button type="button" class="pri" id="advClose">完成</button></div>
+  </div>
+  <span class="pg">10</span>
 </section>
 
 <!-- 7 PMR、iLottery -->
@@ -382,88 +444,13 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
       <li><h3>缺點：AW 的自建成本要守住</h3><ul><li>前期啟動成本與投入成本相對高（網站自建與維護）</li><li>5 年綁約期長</li><li id="s3a"></li></ul></li>
     </ol>
   </div>
-  <p class="src">數字依下一頁「月損益試算」目前的條件即時計算；<span class="warn">AW 尚未計入自建網站與人力成本</span>。</p>
+  <p class="src">數字依第 6 頁「每月獲利結構試算」目前的條件即時計算；<span class="warn">AW 尚未計入自建網站與人力成本</span>。</p>
   <span class="pg">9</span>
 </section>
 
-<!-- 10 計算器 -->
-<section class="slide" id="calc" data-title="賽馬白牌：月損益試算">
-  <div class="hd"><span class="no">10</span><h2>賽馬白牌：月損益試算</h2></div>
-  <div class="calc">
-    <div class="panel">
-      <div class="f">
-        <label for="deposit">月入金（USD）</label>
-        <input type="number" id="deposit" min="0" step="100000" inputmode="numeric">
-        <input type="range" id="depositR" min="500000" max="20000000" step="100000" aria-label="月入金滑桿">
-        <div class="presets" id="presets">
-          <button type="button" data-v="2000000">$200 萬</button>
-          <button type="button" data-v="6000000">$600 萬</button>
-          <button type="button" data-v="10000000">$1,000 萬</button>
-        </div>
-      </div>
-      <div class="f2">
-        <div class="f"><label for="ad">月廣告費</label><input type="number" id="ad" min="0" step="10000"></div>
-        <div class="f"><label for="staff">AW 自建人力與系統</label><input type="number" id="staff" min="0" step="10000"></div>
-      </div>
-      <div class="f">
-        <span class="flab" id="yrlab">AW 合約年度</span>
-        <div class="seg" role="group" aria-labelledby="yrlab">
-          <button type="button" id="y1">第 1 年<small>預付 $35 萬，可抵分潤</small></button>
-          <button type="button" id="y2">第 2–5 年<small>每年最低保證 $75 萬</small></button>
-        </div>
-        <small class="hint">年度保底以月平均近似：第 1 年每月至少 $29,167、第 2–5 年每月至少 $62,500；分潤超過不另付。</small>
-      </div>
-      <div class="f">
-        <span class="flab" id="awtlab">AW 分潤條件（NGR 分成／投注額底限）</span>
-        <div class="seg" role="group" aria-labelledby="awtlab" id="awTerm">
-          <button type="button" data-t="calc">計算器原設定<small>12%／0.5%</small></button>
-          <button type="button" data-t="low">低費州<small>15%／0.75%</small></button>
-          <button type="button" data-t="high">高費州<small>12%／0.25%</small></button>
-        </div>
-        <small class="hint">低／高費州為 AW 非約束性 term sheet 條件，各州歸類待確認；以最終合約為準。</small>
-      </div>
-      <button type="button" class="advbtn" id="advBtn">進階假設（倍數、費率、PS 條款）…</button>
-    </div>
-    <div class="res">
-      <div class="verdict" aria-live="polite">
-        <div><div class="who"><span class="dot" style="background:var(--slate)"></span>PS 月淨利</div><div class="big num" id="psNet"></div><div class="sub num" id="psSub"></div></div>
-        <div><div class="who"><span class="dot" style="background:var(--g)"></span>AW 月淨利</div><div class="big num" id="awNet"></div><div class="sub num" id="awSub"></div></div>
-        <div><div class="who">AW − PS</div><div class="big num" id="diff"></div><div class="sub" id="diffSub"></div></div>
-      </div>
-      <div class="tables">
-        <table class="ct"><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
-        <table class="ct"><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
-      </div>
-      <p class="calcnote"><span class="warn">AW 尚未計入自建網站與人力成本（可在左側填入）</span>；廠商費率依原始文件，入金、廣告與各項費率為 TaDa 內部假設。</p>
-    </div>
-  </div>
-  <div class="adv" id="adv" hidden>
-    <h3>進階假設</h3>
-    <div class="advgrid">
-      <div class="f"><label for="psChurn">PS Handle 倍數</label><input type="number" id="psChurn" step="0.1" min="0"></div>
-      <div class="f"><label for="awChurn">AW Handle 倍數</label><input type="number" id="awChurn" step="0.1" min="0"></div>
-      <div class="f"><label for="promo">獎金、活動 %（佔入金）</label><input type="number" id="promo" step="0.1" min="0"></div>
-      <div class="f"><label for="cb">刷退、詐欺 %（佔入金）</label><input type="number" id="cb" step="0.1" min="0"></div>
-      <div class="f"><label for="proc">金流費率 %（佔入金）</label><input type="number" id="proc" step="0.01" min="0"></div>
-      <div class="f"><label for="gpRate">AW 遊戲商費率 %</label><input type="number" id="gpRate" step="0.1" min="0"></div>
-      <div class="f"><label for="kyc">KYC 月費</label><input type="number" id="kyc" step="1000" min="0"></div>
-      <div class="f"><label for="geo">Geolocation 月費</label><input type="number" id="geo" step="1000" min="0"></div>
-    </div>
-    <div class="checks">
-      <label class="check"><input type="checkbox" id="psCliff">PS 級距整筆適用（GP 落在哪一級，整筆適用該級比例）；取消則改為累進。<span class="warn">整筆或累進待確認</span></label>
-      <label class="check"><input type="checkbox" id="psProc">PS 計入金流手續費（PS 條款附註 1 列為 Client 負擔）</label>
-      <label class="check"><input type="checkbox" id="psSingle">PS 單一州營運，設定費 5 折</label>
-      <label class="check"><input type="checkbox" id="psWaive">PS 年費豁免（12 個月中 7 個月 GP 超過 $100 萬）</label>
-      <label class="check"><input type="checkbox" id="psKyc">PS 另計 KYC／Geo（條款未載明，預設不計）</label>
-    </div>
-    <div class="advact"><button type="button" id="reset">還原預設值</button><button type="button" class="pri" id="advClose">完成</button></div>
-  </div>
-  <span class="pg">10</span>
-</section>
-
-<!-- 11 計算說明與來源 -->
+<!-- 10 計算說明與來源 -->
 <section class="slide" data-title="計算說明與來源">
-  <div class="hd"><span class="no">11</span><h2>計算說明與來源</h2></div>
+  <div class="hd"><span class="no">10</span><h2>計算說明與來源</h2></div>
   <div class="m2">
     <div class="mc">
       <h3><span class="dot" style="background:var(--slate)"></span>PS（Potent Systems）</h3>
@@ -490,6 +477,28 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
   </div>
   <div class="srcbox"><b>資料來源：</b>PS：Potent Platform Terms（2026/01/01）、Platform Functionality。AW：AmWest B-Pool Economics（AmWager Average）、AW 非約束性 term sheet（以最終合約為準）。Handle 倍數、獎金活動、刷退詐欺、金流手續費、KYC／Geo 為 TaDa 內部假設。</div>
   <span class="pg">11</span>
+</section>
+
+<!-- 11 Thank you -->
+<section class="slide cover thanks" data-title="Thank you">
+  <h1>Thank you</h1>
+  <p class="s">Q&amp;A</p>
+  <p class="by">Abbie<i>｜</i>商業模式專題<i>｜</i>2026/11</p>
+</section>
+
+<!-- 12 備用：每月獲利結構（固定情境，數字由計算器公式產生） -->
+<section class="slide s6" data-title="備用｜每月獲利結構試算（固定情境）">
+  <div class="hd"><span class="no">12</span><h2>賽馬 PPGs：每月獲利結構試算</h2><span class="bk">備用</span></div>
+  <p class="kicker">共同入金 $600 萬／月、廣告 $80 萬；差異來自週轉、抽成與費用分配</p>
+  <table class="tb num">
+    <colgroup><col style="width:39%"><col style="width:30%"><col style="width:31%"></colgroup>
+    <thead><tr><th>月試算<i>｜</i>單位：萬美元</th><th>PS<i>｜</i>Potent</th><th>AW<i>｜</i>AmWest</th></tr></thead>
+    <tbody id="s6"></tbody>
+  </table>
+  <p class="callout" style="margin:10px 0 0 12px">此為附圖試算口徑，非完整淨利：未計自建人力、系統與企業所得稅。</p>
+  <button class="go" data-goto="calc">調整試算條件 →</button>
+  <p class="src">PS：按 GP 70% 整筆分潤；AW：NGR 12%／投注額底限 0.5%，設定費月攤 0（首年 $35 萬為預付分潤，可抵權利金）。<br>來源：內部白牌計算器與附圖；金額四捨五入。</p>
+  <span class="pg">6</span>
 </section>
 
 </div>
@@ -590,16 +599,16 @@ function render(){
   $('awSub').textContent=`每 $100 入金淨賺 ${m100(a100)}`+(p.staff?'':'（未含自建成本）');
   $('diffSub').textContent=d>0?'AW 自建人力與系統月成本低於此數，AW 才划算':'目前條件下 PS 較划算';
   const hp=(v,h)=>h?v/h:0;
-  const awLab=aw.pay>aw.share?(p.awYear2?'→ To AmWest（年保底月均）':'→ To AmWest（預付月均）')
-    :(aw.byFloor>aw.byNgr?`→ To AmWest（投注額底限 ${pctT(aw.t.f)}）`:`→ To AmWest（NGR ${pctT(aw.t.r)}）`);
+  const awLab=aw.pay>aw.share?(p.awYear2?'→ AmWest（年保底月均）':'→ AmWest（預付月均）')
+    :(aw.byFloor>aw.byNgr?`→ AmWest（底限 ${pctT(aw.t.f)}）`:`→ AmWest（NGR ${pctT(aw.t.r)}）`);
   const psG=[
     [['入金 Cash In',D,null]],
     [[`Handle（入金 × ${p.psChurn}）`,ps.h,null,'k']],
     [['Takeout（GGR）',ps.ggr,hp(ps.ggr,ps.h),'k']],
     [['－ 賽事／稅費等直接成本',ps.c,hp(ps.c,ps.h),'','賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%']],
     [['Gross Profit（可分潤）',ps.gp,hp(ps.gp,ps.h),'k']],
-    [['→ To Potent',ps.partner,hp(ps.partner,ps.h)]],
-    [[`→ To TaDa（${ps.gp>0?(ps.tada/ps.gp*100).toFixed(1):'60.0'}%）`,ps.tada,hp(ps.tada,ps.h),'t']],
+    [['→ Potent',ps.partner,hp(ps.partner,ps.h)]],
+    [[`→ TaDa（${ps.gp>0?(ps.tada/ps.gp*100).toFixed(1):'60.0'}%）`,ps.tada,hp(ps.tada,ps.h),'t']],
     [['－ 活動、金流、刷退'+(p.psKyc?'、KYC':''),ps.var,null],['－ 年費／設定費月攤',ps.fee,null],['－ 廣告費',p.ad,null]],
     [['淨利',ps.net,{m:ps.net/D},'n']]];
   const awG=[
@@ -609,7 +618,7 @@ function render(){
     [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['－ 活動、金流、刷退、KYC',aw.pre,null]],
     [['NGR（可分潤）',aw.ngr,hp(aw.ngr,aw.h),'k']],
     [[awLab,aw.pay,hp(aw.pay,aw.h)],[`→ Game Provider（${pctT(p.gpRate)}）`,aw.gpf,hp(aw.gpf,aw.h)]],
-    [['→ To TaDa',aw.tada,hp(aw.tada,aw.h),'t']],
+    [['→ TaDa',aw.tada,hp(aw.tada,aw.h),'t']],
     [['－ 廣告費',p.ad,null],['－ 自建人力與系統',p.staff,null]],
     [['淨利',aw.net,{m:aw.net/D},'n']]];
   const blank=['',0,null,'b'], psR=[], awR=[];
@@ -640,6 +649,7 @@ render();
 
 // ===== 切頁
 const stage=$('stage'), slides=[...document.querySelectorAll('.slide')];
+slides.forEach((s,k)=>s.querySelectorAll('.no,.pg').forEach(e=>{e.textContent=k+1;}));
 let cur=0;
 function fit(){
   const s=Math.min(innerWidth/1600,innerHeight/900);
