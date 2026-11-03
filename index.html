@@ -290,9 +290,9 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 </section>
 
 <!-- 4 投注原理（圖） -->
-<section class="slide" data-title="賽馬 PPG：從投注到老虎機展演">
-  <div class="hd"><span class="no">4</span><h2>賽馬 PPG：從投注到老虎機展演</h2></div>
-  <div class="imgslot"><img src="img/04.png" alt="賽馬 PPG 從投注到老虎機展演示意圖" onerror="this.parentNode.classList.add('empty')"><p>圖片待補（img/04.png）</p></div>
+<section class="slide" data-title="賽馬 PPGs：從投注到老虎機展演">
+  <div class="hd"><span class="no">4</span><h2>賽馬 PPGs：從投注到老虎機展演</h2></div>
+  <div class="imgslot"><img src="img/04.png" alt="賽馬 PPGs 從投注到老虎機展演示意圖" onerror="this.parentNode.classList.add('empty')"><p>圖片待補（img/04.png）</p></div>
   <span class="pg">4</span>
 </section>
 
@@ -322,15 +322,6 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
           <button type="button" id="y2">第 2–5 年<small>年費 $75 萬，可抵分潤</small></button>
         </div>
         <small class="hint">第 1 年設定費、第 2–5 年年費都按月攤列成本；AmWest 分潤先抵這筆，超出的部分才另付。</small>
-      </div>
-      <div class="f">
-        <span class="flab" id="awtlab">AW 分潤條件（NGR 分成／投注額底限）</span>
-        <div class="seg" role="group" aria-labelledby="awtlab" id="awTerm">
-          <button type="button" data-t="calc">計算器<small>12%／0.5%</small></button>
-          <button type="button" data-t="low">低費州<small>15%／0.75%</small></button>
-          <button type="button" data-t="high">高費州<small>12%／0.25%</small></button>
-        </div>
-        <small class="hint">低／高費州為 AW 非約束性 term sheet 條件，各州歸類待確認；以最終合約為準。</small>
       </div>
       <button type="button" class="advbtn" id="advBtn">進階假設（倍數、費率、PS 條款）…</button>
     </div>
@@ -490,7 +481,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
         <li>Handle ＝ 入金 × Handle 倍數；GGR ＝ Handle × Takeout 7.75%</li>
         <li>COS ＝ Handle × 1.66%（pool guarantees、賽道內容、監管費與稅、host fees、資料費、tote 等）</li>
         <li>NGR ＝ GGR − COS − 獎金活動 − 金流 − 刷退詐欺 − KYC − Geolocation</li>
-        <li>AW 分成 ＝ MAX（NGR × 分成率，Handle × 底限）；計算器原設定 12%／0.5%，term sheet 低費州 15%／0.75%、高費州 12%／0.25%</li>
+        <li>AW 分成 ＝ MAX（NGR × 12%，Handle × 0.5%）</li>
         <li>設定費（月攤）＝ 第 1 年 $35 萬 ÷ 12；年費（月攤）＝ 第 2–5 年 $75 萬 ÷ 12；兩者都可用 AW 分成抵扣，To AmWest ＝ MAX（AW 分成 − 已列年費／設定費，0）</li>
         <li>遊戲商 ＝（GGR − COS）× 遊戲商費率；TaDa 分成 ＝ NGR − To AmWest − 遊戲商</li>
         <li>淨利 ＝ TaDa 分成 − 廣告 − 年費／設定費（月攤）− 自建人力與系統</li>
@@ -513,8 +504,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <div class="toc" id="toc" hidden><ol id="tocList"></ol></div>
 
 <script>
-// ===== 試算公式（沿用白牌計算器；AW 改依 term sheet：$35 萬為預付分潤、分潤條件可切換）
-const AWT={calc:{r:.12,f:.005},low:{r:.15,f:.0075},high:{r:.12,f:.0025}};
+// ===== 試算公式（與白牌計算器相同）
 function calc(p){
   const D=p.deposit;
   // ---- PS
@@ -531,29 +521,28 @@ function calc(p){
   const psAnnual=p.psWaive?0:40000/12, psSetup=(p.psSingle?50000:100000)/12, psFee=psAnnual+psSetup;
   const pn=pt-psVar-psFee-p.ad;
   // ---- AW
-  const t=AWT[p.awTerm]||AWT.calc;
   const ah=D*p.awChurn, ag=ah*0.0775, ac=ah*0.0166;
   const aPre=D*(p.promo+p.proc+p.cb)+p.kyc+p.geo;
   const angr=ag-ac-aPre;
-  const byNgr=angr*t.r, byFloor=ah*t.f, share=Math.max(byNgr,byFloor);
+  const byNgr=angr*0.12, byFloor=ah*0.005, share=Math.max(byNgr,byFloor);
   // term sheet：第 1 年 $35 萬預付、第 2–5 年年費 $75 萬，都按月攤列成本；分潤先抵這筆，超出的才另付 AmWest
   const awAnnual=p.awYear2?750000/12:0, awSetup=p.awYear2?0:350000/12;
   const awPay=Math.max(share-awAnnual-awSetup,0);
   const agp=(ag-ac)*p.gpRate, at=angr-awPay-agp;
   const an=at-p.ad-awAnnual-awSetup-p.staff;
   return {D,ps:{h:ph,ggr:pg,c:pc,gp:pgp,tada:pt,partner:pp,var:psVar,annual:psAnnual,setup:psSetup,fee:psFee,net:pn},
-          aw:{h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,t,byNgr,byFloor,share,annual:awAnnual,setup:awSetup,pay:awPay,gpf:agp,tada:at,net:an}};
+          aw:{h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,byNgr,byFloor,share,annual:awAnnual,setup:awSetup,pay:awPay,gpf:agp,tada:at,net:an}};
 }
 
 const DEF={deposit:6000000,ad:800000,staff:0,psChurn:4.024,awChurn:8,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
-  awYear2:false,awTerm:'calc',psCliff:true,psProc:true,psSingle:false,psWaive:false,psKyc:false};
+  awYear2:false,psCliff:true,psProc:true,psSingle:false,psWaive:false,psKyc:false};
 let S=Object.assign({},DEF);   // 簡報用：每次打開都從預設情境開始，不記住上次的輸入
 const $=id=>document.getElementById(id);
 const numIds=['deposit','ad','staff','psChurn','awChurn','promo','cb','proc','gpRate','kyc','geo'];
 const chkIds=['psCliff','psProc','psSingle','psWaive','psKyc'];
 const P=s=>({deposit:+s.deposit||0,ad:+s.ad||0,staff:+s.staff||0,psChurn:+s.psChurn||0,awChurn:+s.awChurn||0,
   promo:(+s.promo||0)/100,cb:(+s.cb||0)/100,proc:(+s.proc||0)/100,gpRate:(+s.gpRate||0)/100,kyc:+s.kyc||0,geo:+s.geo||0,
-  awYear2:!!s.awYear2,awTerm:s.awTerm,psCliff:!!s.psCliff,psProc:!!s.psProc,psSingle:!!s.psSingle,psWaive:!!s.psWaive,psKyc:!!s.psKyc});
+  awYear2:!!s.awYear2,psCliff:!!s.psCliff,psProc:!!s.psProc,psSingle:!!s.psSingle,psWaive:!!s.psWaive,psKyc:!!s.psKyc});
 const w2=v=>(v<0?'−':'')+(Math.abs(v)/1e4).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 const wan=v=>(v<0?'−':'')+'$'+(Math.abs(v)/1e4).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' 萬';
 const wan0=v=>'$'+(v/1e4).toLocaleString('en-US',{maximumFractionDigits:0})+' 萬';
@@ -582,7 +571,6 @@ function syncInputs(){
   $('depositR').value=Math.min(Math.max(S.deposit,500000),20000000);
   chkIds.forEach(k=>$(k).checked=!!S[k]);
   $('y1').setAttribute('aria-pressed',!S.awYear2); $('y2').setAttribute('aria-pressed',!!S.awYear2);
-  document.querySelectorAll('#awTerm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===S.awTerm));
   document.querySelectorAll('#presets button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===+S.deposit));
 }
 function rows(list){return list.map(([lab,v,h,cls,tip])=>cls==='b'
@@ -600,7 +588,7 @@ function render(){
   $('awSub').textContent=`每 $100 入金淨賺 ${m100(a100)}`+(p.staff?'':'（未含自建成本）');
   $('diffSub').textContent=d>0?'AW 自建人力與系統月成本低於此數，AW 才划算':'目前條件下 PS 較划算';
   const hp=(v,h)=>h?v/h:0;
-  const awTip=`${aw.byFloor>aw.byNgr?'投注額底限 '+pctT(aw.t.f):'NGR '+pctT(aw.t.r)} 分潤 ${w2(aw.share)} 萬，扣除本月已列的年費／設定費後另付`;
+  const awTip=`${aw.byFloor>aw.byNgr?'投注額底限 0.5%':'NGR 12%'} 分潤 ${w2(aw.share)} 萬，扣除本月已列的年費／設定費後另付`;
   const psG=[
     [['入金 Cash In',D,null]],
     [[`Handle（入金 × ${p.psChurn}）`,ps.h,null,'k']],
@@ -639,7 +627,6 @@ numIds.forEach(k=>$(k).addEventListener('input',e=>{S[k]=e.target.value===''?0:+
 $('depositR').addEventListener('input',e=>{S.deposit=+e.target.value;render();});
 chkIds.forEach(k=>$(k).addEventListener('change',e=>{S[k]=e.target.checked;render();}));
 document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>{S.deposit=+b.dataset.v;render();}));
-document.querySelectorAll('#awTerm button').forEach(b=>b.addEventListener('click',()=>{S.awTerm=b.dataset.t;render();}));
 $('y1').addEventListener('click',()=>{S.awYear2=false;render();});
 $('y2').addEventListener('click',()=>{S.awYear2=true;render();});
 $('reset').addEventListener('click',()=>{S=Object.assign({},DEF);render();});
