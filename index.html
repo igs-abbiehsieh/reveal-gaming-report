@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>娛樂展示遊戲｜市場預測與獲利結構</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#00A34E; --gd:#00873F; --ink:#12343B; --tx:#26332E; --mu:#66736E; --card:#EEF6F1; --line:#D9E4DE;
+  --tot:#D6EEDF; --sand:#F3EBCF; --loss:#B42318; --slate:#6F7F88; --gold:#C9A227; --bg:#1B2420;
+}
+*,*::before,*::after{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg)}
+body{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* stage：固定 1600×900 畫布，依視窗等比縮放 */
+.stage{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;background:#fff;overflow:hidden}
+.slide{position:absolute;inset:0;padding:56px 72px 0;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.slide.on{opacity:1;visibility:visible}
+.hd{display:flex;align-items:center;gap:22px;height:64px}
+.no{width:60px;height:60px;border-radius:50%;background:var(--g);color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+h2{font-size:48px;font-weight:900;color:var(--ink);margin:0;line-height:1.2}
+.kicker{font-size:32px;font-weight:700;color:var(--g);margin:34px 0 0;line-height:1.3}
+.src{position:absolute;left:84px;right:150px;bottom:26px;font-size:15px;color:var(--mu);line-height:1.6}
+.pg{position:absolute;right:64px;bottom:34px;font-size:17px;color:var(--mu)}
+.callout{font-size:26px;font-weight:700;color:var(--g)}
+.pill{display:inline-block;border-radius:8px;padding:7px 28px;font-size:22px;font-weight:700;background:var(--g);color:#fff}
+a{color:var(--gd)}
+
+/* 1 封面 */
+.cover{background:var(--g);color:#fff;padding:0 108px}
+.cover .tag{position:absolute;right:72px;top:56px;font-size:18px;border:1px solid rgba(255,255,255,.6);border-radius:6px;padding:4px 14px}
+.cover .k{position:absolute;top:252px;font-size:44px;font-weight:700;margin:0 0 0 -14px}
+.cover h1{position:absolute;top:322px;font-size:76px;font-weight:900;margin:0;line-height:1.2}
+.cover .s{position:absolute;top:446px;font-size:42px;font-weight:700;margin:0}
+.cover .s i{font-style:normal;font-weight:400;opacity:.7;margin:0 12px}
+.cover .by{position:absolute;bottom:96px;font-size:22px;margin:0}
+.cover .by i{font-style:normal;opacity:.6;margin:0 10px}
+
+/* 2 市場三卡 */
+.c3{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:52px}
+.mk{height:540px;border-radius:12px;background:var(--card);padding:36px 36px 0}
+.mk.hl{background:var(--g);color:#fff}
+.mk.hl .pill{background:#fff;color:var(--g);padding:7px 50px}
+.mk .pill{padding:7px 28px}
+.mk .big{font-size:64px;font-weight:900;line-height:1.1;margin:26px 0 8px;color:var(--ink)}
+.mk.hl .big,.mk.hl .lab,.mk.hl .val{color:#fff}
+.mk .what{font-size:26px;font-weight:700;margin:0 0 58px;color:var(--ink)}
+.mk.hl .what{color:#fff}
+.mk .lab{font-size:20px;font-weight:700;color:var(--ink);margin:0 0 6px}
+.mk .val{font-size:28px;font-weight:700;color:var(--ink);margin:0 0 50px}
+.mk .note{font-size:24px;line-height:1.3;margin:0}
+.s2foot{margin-top:28px}
+
+/* 3 流程四步 */
+.steps{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr 30px 1fr;margin-top:52px;height:384px}
+.st{border-radius:12px;background:var(--card);padding:30px 30px 0}
+.st.hl{background:var(--g);color:#fff}
+.st .n{width:60px;height:60px;border-radius:50%;background:var(--g);color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.st.hl .n{background:#fff;color:var(--g)}
+.st h3{font-size:38px;font-weight:900;color:var(--g);margin:22px 0 12px}
+.st.hl h3{color:#fff}
+.st b{display:block;font-size:24px;color:var(--ink);margin-bottom:22px}
+.st.hl b{color:#fff}
+.st p{font-size:24px;margin:0;line-height:1.3}
+.arw{display:flex;align-items:center;justify-content:center;color:var(--g);font-size:30px;font-weight:700}
+.formula{font-size:40px;font-weight:700;color:var(--g);margin:52px 0 0}
+.fnote{font-size:22px;color:var(--mu);margin:34px 0 0 12px}
+
+/* 4 圖片版位 */
+.imgslot{position:absolute;left:72px;right:72px;top:160px;bottom:90px;display:flex;align-items:center;justify-content:center}
+.imgslot img{max-width:100%;max-height:100%;object-fit:contain}
+.imgslot p{display:none}
+.imgslot.empty img{display:none}
+.imgslot.empty p{display:flex;width:100%;height:100%;margin:0;align-items:center;justify-content:center;border:3px dashed var(--line);border-radius:14px;color:var(--mu);font-size:30px}
+
+/* 表格 */
+.tb{width:100%;border-collapse:collapse;font-size:22px}
+.tb th{background:var(--g);color:#fff;text-align:left;font-weight:700;padding:14px 12px;font-size:24px}
+.tb th i{font-style:normal;font-weight:400;opacity:.75;margin:0 8px}
+.tb td{padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:middle;line-height:1.35}
+.tb tbody tr:nth-child(even) td{background:var(--card)}
+.tb td:first-child{font-weight:700;color:var(--ink)}
+.tb .small{font-size:15px;color:var(--mu)}
+.tb tr.tot td{background:var(--tot)!important;font-weight:700}
+.s5 .tb{margin-top:38px}
+.s5 .tb td{height:90px}
+.s6 .tb{margin-top:34px}
+.s6 .tb td{height:51px;padding:6px 12px}
+.s6 .tb th{padding:12px}
+.s6 .tb tr.tot td{height:56px}
+.s6 .go{position:absolute;right:160px;bottom:84px}
+.go{display:inline-block;font-size:22px;font-weight:700;color:var(--gd);text-decoration:underline;text-underline-offset:5px;background:none;border:0;cursor:pointer;padding:0}
+
+/* 7 每 $100 */
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:36px}
+.pc{height:516px;border-radius:12px;background:var(--card);padding:26px 34px 0;color:var(--ink)}
+.pc.hl{background:var(--g);color:#fff}
+.pc .pill{width:336px;text-align:center;font-size:22px;padding:7px 0}
+.pc.hl .pill{background:#fff;color:var(--g)}
+.pc h3{font-size:42px;font-weight:900;margin:12px 0 6px}
+.pc .per{font-size:22px;font-weight:700;margin:0 0 16px}
+.pc .eq{font-size:27px;font-weight:700;margin:0 0 22px;line-height:1.25}
+.pc .lab{font-size:27px;font-weight:700;margin:0 0 8px}
+.pc .calc7{font-size:27px;margin:0 0 26px;line-height:1.25}
+.pc .res7{font-size:27px;font-weight:700;margin:0;line-height:1.25}
+.s7foot{font-size:22px;font-weight:700;color:var(--g);margin:6px 0 0}
+
+/* 8 市場三列 */
+.rows3{display:grid;gap:26px;margin-top:62px}
+.r3{height:186px;border-radius:12px;background:var(--card);display:grid;grid-template-columns:144px 1fr;align-items:center}
+.r3 .n{width:72px;height:72px;border-radius:50%;background:var(--g);color:#fff;font-size:32px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:36px}
+.r3 h3{font-size:32px;font-weight:900;color:var(--ink);margin:0 0 16px}
+.r3 p{font-size:24px;color:var(--mu);margin:0;line-height:1.3}
+
+/* 9 結論摘要 */
+.sum{display:grid;grid-template-columns:420px 1fr;gap:56px;margin-top:44px}
+.rec{background:var(--g);color:#fff;border-radius:14px;padding:36px;display:flex;flex-direction:column;gap:22px;height:560px}
+.rec .lab{font-size:22px;font-weight:700;color:#FFE38A;margin:0}
+.rec .main{font-size:36px;font-weight:900;line-height:1.35;margin:0;flex:1}
+.rec .alt{font-size:23px;opacity:.9;margin:0;line-height:1.45}
+.pts{list-style:none;margin:0;padding:0;counter-reset:p}
+.pts>li{counter-increment:p;display:grid;grid-template-columns:58px 1fr;gap:2px 18px;padding:2px 0 30px}
+.pts>li::before{content:counter(p);grid-row:span 2;width:52px;height:52px;border-radius:50%;background:var(--g);color:#fff;font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center}
+.pts h3{font-size:29px;line-height:1.35;margin:6px 0 8px;color:var(--ink)}
+.pts ul{margin:0;padding-left:26px;font-size:22px;line-height:1.5}
+.pts .em{color:var(--loss);font-weight:700}
+.warn{color:var(--loss);font-weight:700}
+
+/* 10 計算器 */
+.calc{display:grid;grid-template-columns:420px 1fr;gap:28px;margin-top:26px}
+.panel{background:var(--card);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:18px;height:700px}
+.f label,.flab{display:block;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hint{display:block;color:var(--mu);font-size:14px;margin-top:6px;line-height:1.45}
+input[type=number]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--tx);font:inherit;font-size:18px;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
+.presets{display:flex;gap:8px;margin-top:6px}
+.presets button{font-size:15px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 14px;cursor:pointer}
+.presets button[aria-pressed=true]{background:var(--g);color:#fff;border-color:var(--g)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.seg button{flex:1;border:0;border-left:1px solid var(--line);background:#fff;padding:7px 4px;line-height:1.3;cursor:pointer;font-size:16px;font-weight:700}
+.seg button:first-child{border-left:0}
+.seg button small{display:block;font-size:13px;font-weight:400;opacity:.85}
+.seg button[aria-pressed=true]{background:var(--g);color:#fff}
+.advbtn{margin-top:auto;border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font-size:16px;font-weight:700;cursor:pointer;text-align:left}
+.res{display:flex;flex-direction:column;gap:16px;min-width:0}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.verdict>div{padding:16px 22px;border-left:1px solid var(--line)}
+.verdict>div:first-child{border-left:0}
+.verdict>div:last-child{background:var(--card)}
+.who{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--ink)}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.big{font-size:42px;font-weight:900;line-height:1.15;margin:6px 0 2px}
+.sub{color:var(--mu);font-size:15px}
+.loss{color:var(--loss)} .gain{color:var(--gd)}
+.tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ct{width:100%;border-collapse:collapse;font-size:16px;border:1px solid var(--line)}
+.ct th{color:#fff;font-weight:700;padding:8px 10px;text-align:left;font-size:16px}
+.ct th.r,.ct td.r{text-align:right}
+.ct td{padding:0 10px;height:31px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ct td.ind{padding-left:22px}
+.ct tr.k td{background:var(--card);font-weight:700}
+.ct tr.t td{background:var(--sand);font-weight:700}
+.ct tr.n td{background:var(--tot);font-weight:900}
+.ct tr.b td{color:transparent}
+.hps{background:var(--slate)} .haw{background:var(--g)}
+.calcnote{font-size:15px;color:var(--mu);margin:0;line-height:1.5}
+.adv{position:absolute;left:520px;right:72px;top:146px;height:700px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:24px 28px;z-index:3}
+.adv[hidden]{display:none}
+.adv h3{margin:0 0 16px;font-size:24px;color:var(--ink)}
+.advgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;margin-top:22px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:16px;line-height:1.45}
+.check input{margin-top:5px;width:18px;height:18px;accent-color:var(--g);flex:none}
+.advact{position:absolute;left:28px;right:28px;bottom:22px;display:flex;gap:12px;justify-content:flex-end}
+.advact button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 18px;font-size:16px;cursor:pointer}
+.advact button.pri{background:var(--g);color:#fff;border-color:var(--g)}
+
+/* 11 計算說明 */
+.m2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
+.mc{border:1px solid var(--line);border-radius:14px;padding:20px 26px;height:520px}
+.mc h3{margin:0 0 10px;font-size:24px;color:var(--ink);display:flex;align-items:center;gap:10px}
+.mc ol{margin:0;padding-left:26px;font-size:18px;line-height:1.55}
+.mc li{margin-bottom:7px}
+.srcbox{margin-top:20px;background:var(--card);border-radius:12px;padding:14px 22px;font-size:16px;line-height:1.6}
+.srcbox b{color:var(--ink)}
+
+/* 控制列 */
+.ctl{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;background:rgba(18,30,26,.88);color:#fff;border-radius:999px;padding:5px 8px;font-size:14px;z-index:10;opacity:0;transition:opacity .3s;pointer-events:none}
+.ctl.show,.ctl:hover,.ctl:focus-within{opacity:1;pointer-events:auto}
+.ctl button{background:none;border:0;color:#fff;cursor:pointer;border-radius:999px;padding:5px 12px;font-size:14px}
+.ctl button:hover{background:rgba(255,255,255,.15)}
+.ctl .arrow{font-size:20px;line-height:1;padding:3px 12px}
+.ctl #cnt{min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
+.toc{position:fixed;right:16px;bottom:62px;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.35);padding:10px;z-index:11;max-height:80vh;overflow:auto;min-width:320px}
+.toc[hidden]{display:none}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc button{display:flex;gap:12px;width:100%;text-align:left;background:none;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:15px;color:var(--tx)}
+.toc button:hover{background:var(--card)}
+.toc button[aria-current=true]{color:var(--gd);font-weight:700;background:var(--card)}
+.toc span{width:22px;color:var(--mu);font-variant-numeric:tabular-nums}
+
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{overflow:visible;height:auto;background:#fff}
+  .stage{position:static;transform:none!important;height:auto;overflow:visible}
+  .slide{position:relative;opacity:1;visibility:visible;height:900px;break-after:page;page-break-after:always;overflow:hidden}
+  .ctl,.toc,.adv,.go,.advbtn{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 1 封面 -->
+<section class="slide cover" data-title="封面">
+  <span class="tag">內部資料</span>
+  <p class="k">【商業模式專題】</p>
+  <h1>美國監管市場－娛樂展示遊戲</h1>
+  <p class="s">Reveal Gaming<i>｜</i>市場預測＆獲利結構</p>
+  <p class="by">Abbie<i>｜</i>商業模式專題<i>｜</i>2026/11</p>
+</section>
+
+<!-- 2 市場 -->
+<section class="slide" data-title="Reveal Gaming 市場現況與 EKG 預測">
+  <div class="hd"><span class="no">2</span><h2>Reveal Gaming 市場現況與 EKG 預測</h2></div>
+  <div class="c3">
+    <div class="mk hl">
+      <span class="pill">現況</span>
+      <p class="big">22 州</p>
+      <p class="what">已有 PPG 品牌上線</p>
+      <p class="lab">觀察範圍</p>
+      <p class="val">全美 PPGs 上線版圖</p>
+      <p class="lab">補充資訊</p>
+      <p class="note">指已有 PPG 品牌上線的州數；<br>不代表各品牌均覆蓋 22 州。</p>
+    </div>
+    <div class="mk">
+      <span class="pill">成熟情境</span>
+      <p class="big">$20–50 億</p>
+      <p class="what">PPGs 賽馬 年 GGR 潛力</p>
+      <p class="lab">模型前提</p>
+      <p class="val">30 州市場成熟情境</p>
+      <p class="lab">補充資訊</p>
+      <p class="note">市場潛力估算；<br>不是目前營收或明年目標。</p>
+    </div>
+    <div class="mk">
+      <span class="pill">年化估計</span>
+      <p class="big">約 $24 億</p>
+      <p class="what">Hard Rock PMR 賽車 年化 GGR</p>
+      <p class="lab">產品／地區</p>
+      <p class="val">Hard Rock Bet／佛州</p>
+      <p class="lab">補充資訊</p>
+      <p class="note">當期表現換算全年；<br>不是已實現的全年營收。</p>
+    </div>
+  </div>
+  <p class="callout s2foot">GGR＝玩家投入－玩家獲得；上述市場規模均不等於站台淨利。</p>
+  <p class="src">來源：Eilers &amp; Krejcik Gaming Recap，2026/10，p. 3。金額皆為美元。</p>
+  <span class="pg">2</span>
+</section>
+
+<!-- 3 PPG 流程 -->
+<section class="slide" data-title="PPGs 賽馬：從投注到老虎機展演">
+  <div class="hd"><span class="no">3</span><h2>PPGs 賽馬：從投注到老虎機展演</h2></div>
+  <p class="kicker">以 Potent 架構說明：賽馬產生投注結果，遊戲畫面負責呈現</p>
+  <div class="steps">
+    <div class="st"><span class="n">1</span><h3>購買代幣</h3><b>玩家投入 $100</b><p>依設定比例分流<br>$40 進入賽馬投注<br>$60 直接返還部分</p></div>
+    <div class="arw">›</div>
+    <div class="st"><span class="n">2</span><h3>賽馬投注</h3><b>投注資金進入彩池</b><p>系統執行賽馬投注<br>依賽果與彩池結算<br>抽成涵蓋產業收入</p></div>
+    <div class="arw">›</div>
+    <div class="st"><span class="n">3</span><h3>結果匯總</h3><b>結算可返還金額</b><p>投注期望返還 $32<br>加直接返還 $60<br>合計期望返還 $92</p></div>
+    <div class="arw">›</div>
+    <div class="st hl"><span class="n">4</span><h3>遊戲展演</h3><b>老虎機畫面揭曉</b><p>以轉輪／獎勵動畫<br>呈現返還與獎項<br>安排派彩節奏與波動</p></div>
+  </div>
+  <p class="formula">40% 投注 × (1 − 20% 抽成) ＋ 60% 直接返還 ＝ 92% RTP</p>
+  <p class="fnote">40／60 為算術說明情境；RTP 是長期期望值，並非單次或每位玩家保證返還。</p>
+  <p class="src">來源：TaDa × Potent 會議逐字稿，2026/04/09，00:07:26–00:14:49；比例為簡化假設。</p>
+  <span class="pg">3</span>
+</section>
+
+<!-- 4 投注原理（圖） -->
+<section class="slide" data-title="賽馬 PPGs：投注原理">
+  <div class="hd"><span class="no">4</span><h2>賽馬 PPGs：投注原理</h2></div>
+  <div class="imgslot"><img src="img/04.png" alt="賽馬 PPGs 投注原理示意圖" onerror="this.parentNode.classList.add('empty')"><p>圖片待補（img/04.png）</p></div>
+  <span class="pg">4</span>
+</section>
+
+<!-- 5 白牌條件比較 -->
+<section class="slide s5" data-title="賽馬 PPGs：白牌合作條件比較">
+  <div class="hd"><span class="no">5</span><h2>賽馬 PPGs：白牌合作條件比較</h2></div>
+  <p class="kicker">Potent 偏向整合服務；AmWest 偏向自行建站與營運</p>
+  <table class="tb">
+    <colgroup><col style="width:16%"><col style="width:41%"><col style="width:43%"></colgroup>
+    <thead><tr><th>項目</th><th>PS<i>｜</i>Potent Systems</th><th>AW<i>｜</i>AmWest</th></tr></thead>
+    <tbody>
+      <tr><td>營運模式</td><td>平台、金流與客服整合<br>站外前端可自行調整　<a href="https://app.racebetwin.com/" target="_blank" rel="noopener noreferrer">Demo ↗</a><br><span class="small">Demo 帳號：info@potentsystems.com／密碼：Apple2020!</span></td><td>提供 ADW／賽馬投注服務<br>站台與營運由 TaDa 主導</td></tr>
+      <tr><td>初期費用</td><td>授權／客製／部署 $10 萬<br>單州方案可減半</td><td>首年 $35 萬預付分潤<br>可抵權利金，非單純設定費</td></tr>
+      <tr><td>年費／年限</td><td>年費 $4 萬，達標可豁免<br>期限：現有條款未載明</td><td>首期 5 年；第 2–5 年<br>每年最低保證 $75 萬</td></tr>
+      <tr><td>分潤方式</td><td>月 GP：≤100萬 60%；100–500萬 70%<br>500–1,000萬 75%；&gt;1,000萬 80%<br>整筆或累進待確認（金額為美元）</td><td>計算器：NGR 12%，保底投注額 0.5%<br>原始 term sheet 另依州別訂價*</td></tr>
+      <tr><td>產品彈性</td><td>使用既有平台；功能可協商<br>金流與刷退等由客戶負擔</td><td>自主調整品牌、前端與功能<br>另負擔自建人力與系統成本</td></tr>
+    </tbody>
+  </table>
+  <p class="src">來源：PS Platform Terms（2026/01/01）、Potent 會議、AW 非約束性 term sheet、內部計算器。<br>*AW 原始條款：低費州 NGR 15%／投注額底限 0.75%；高費州 12%／0.25%。須以最終合約為準。</p>
+  <span class="pg">5</span>
+</section>
+
+<!-- 6 每月獲利結構（固定情境，數字由計算器公式產生） -->
+<section class="slide s6" data-title="賽馬 PPGs：每月獲利結構試算">
+  <div class="hd"><span class="no">6</span><h2>賽馬 PPGs：每月獲利結構試算</h2></div>
+  <p class="kicker">共同入金 $600 萬／月、廣告 $80 萬；差異來自週轉、抽成與費用分配</p>
+  <table class="tb num">
+    <colgroup><col style="width:39%"><col style="width:30%"><col style="width:31%"></colgroup>
+    <thead><tr><th>月試算<i>｜</i>單位：萬美元</th><th>PS<i>｜</i>Potent</th><th>AW<i>｜</i>AmWest</th></tr></thead>
+    <tbody id="s6"></tbody>
+  </table>
+  <p class="callout" style="margin:10px 0 0 12px">此為附圖試算口徑，非完整淨利：未計自建人力、系統與企業所得稅。</p>
+  <button class="go" data-goto="calc">調整試算條件 →</button>
+  <p class="src">PS：按 GP 70% 整筆分潤；AW：NGR 12%／投注額底限 0.5%，設定費月攤 0（首年 $35 萬為預付分潤，可抵權利金）。<br>來源：內部白牌計算器與附圖；金額四捨五入。</p>
+  <span class="pg">6</span>
+</section>
+
+<!-- 7 PMR、iLottery -->
+<section class="slide" data-title="PMR、iLottery：每 $100 的獲利結構">
+  <div class="hd"><span class="no">7</span><h2>PMR、iLottery：每 $100 的獲利結構</h2></div>
+  <p class="kicker">同樣扣除玩家獎金，但營運主體、稅費基礎與供應商收入不同</p>
+  <div class="c2">
+    <div class="pc hl">
+      <span class="pill">佛州｜情境假設</span>
+      <h3>賽車 PMR</h3>
+      <p class="per">每 $100 投注額；非儲值金額</p>
+      <p class="eq">玩家返還（假設）$92<br>GGR ＝ $100 − $92 ＝ $8</p>
+      <p class="lab">稅費與情境試算</p>
+      <p class="calc7">若按直接投注分成 13.75%：<br>$8 × 13.75% ＝ $1.10</p>
+      <p class="res7">扣州分成後 $6.90<br>尚未扣內容、營運與其他適用稅費</p>
+    </div>
+    <div class="pc">
+      <span class="pill">Kentucky｜FY2024</span>
+      <h3>彩券 iLottery eInstant</h3>
+      <p class="per">每 $100 彩券銷售額</p>
+      <p class="eq">玩家獎金 $87.20（歷史平均）<br>Game margin ＝ $12.80</p>
+      <p class="lab">稅費與情境試算</p>
+      <p class="calc7">IGT 費率 16.99% × 淨銷售：<br>以 $12.80 近似合約淨銷售 → $2.17</p>
+      <p class="res7">扣供應商費後約 $10.63<br>尚未扣其他費用，再形成州公益盈餘</p>
+    </div>
+  </div>
+  <p class="s7foot">各州制度不同；PMR 稅基仍待核實。州彩券盈餘繳庫不是民營站台的博彩稅。</p>
+  <p class="src">來源：Hard Rock Bet 官網；Florida 2021 Compact 州議會分析；Kentucky Lottery FY2024／FY2025 審計報告。<br>IGT 正式計價採統計派彩率；$2.17 僅用歷史實際獎金率近似估算，非已揭露單品成本或淨利。</p>
+  <span class="pg">7</span>
+</section>
+
+<!-- 8 跨模式布局 -->
+<section class="slide" data-title="市場現況：跨模式布局與產品整合">
+  <div class="hd"><span class="no">8</span><h2>市場現況：跨模式布局與產品整合</h2></div>
+  <div class="rows3">
+    <div class="r3"><span class="n">1</span><div><h3>合規業者開始布局娛樂展示遊戲</h3><p>EKG 指 GiddyUp 正被大型合規業者收購（未點名買方）。<br>Chumba Spins 提供賽馬娛樂展示產品，公開報導所引條款列 GPN 為營運方。</p></div></div>
+    <div class="r3"><span class="n">2</span><div><h3>遊戲供應商跨向更多監管市場</h3><p>3 Oaks 同時布局 AmWest 與受監管 iGaming 市場。<br>已取得 MGA Recognition Notice；美國新上線案例之州別與客戶仍待核實。</p></div></div>
+    <div class="r3"><span class="n">3</span><div><h3>多產品整合：一個帳號與錢包，串接不同玩法</h3><p>Modo：Social+、Arcade、Rips；Predict 公告為「即將推出」。<br>DraftKings：Sportsbook、Predictions、Casino、Lottery 整合計畫，依地區開放。</p></div></div>
+  </div>
+  <p class="src">來源：EKG 2026/10；Chumba Spins 條款／公開報導；3 Oaks 官網與 MGA 新聞稿；ARB 2026/11/02、DraftKings 2026/03/02 公告。</p>
+  <span class="pg">8</span>
+</section>
+
+<!-- 9 結論摘要（數字跟著計算器即時變動） -->
+<section class="slide" data-title="賽馬白牌：結論摘要">
+  <div class="hd"><span class="no">9</span><h2>賽馬白牌：結論摘要</h2></div>
+  <div class="sum">
+    <div class="rec">
+      <p class="lab">建議</p>
+      <p class="main">以 AW 為優先方案，<br>獲利模型較佳</p>
+      <p class="alt">PS 為備案，優勢在於：<br>門檻低、統包、無綁約</p>
+    </div>
+    <ol class="pts">
+      <li><h3 id="s1h"></h3><ul><li id="s1a"></li><li id="s1b"></li></ul></li>
+      <li><h3>優點：AW 改東西彈性高，損益兩平較快</h3><ul><li class="em">網站自建＝調整彈性高，不會大家都長一樣，改東西較快</li><li id="s2a"></li><li id="s2b"></li></ul></li>
+      <li><h3>缺點：AW 的自建成本要守住</h3><ul><li>前期啟動成本與投入成本相對高（網站自建與維護）</li><li>5 年綁約期長</li><li id="s3a"></li></ul></li>
+    </ol>
+  </div>
+  <p class="src">數字依下一頁「月損益試算」目前的條件即時計算；<span class="warn">AW 尚未計入自建網站與人力成本</span>。</p>
+  <span class="pg">9</span>
+</section>
+
+<!-- 10 計算器 -->
+<section class="slide" id="calc" data-title="賽馬白牌：月損益試算">
+  <div class="hd"><span class="no">10</span><h2>賽馬白牌：月損益試算</h2></div>
+  <div class="calc">
+    <div class="panel">
+      <div class="f">
+        <label for="deposit">月入金（USD）</label>
+        <input type="number" id="deposit" min="0" step="100000" inputmode="numeric">
+        <input type="range" id="depositR" min="500000" max="20000000" step="100000" aria-label="月入金滑桿">
+        <div class="presets" id="presets">
+          <button type="button" data-v="2000000">$200 萬</button>
+          <button type="button" data-v="6000000">$600 萬</button>
+          <button type="button" data-v="10000000">$1,000 萬</button>
+        </div>
+      </div>
+      <div class="f2">
+        <div class="f"><label for="ad">月廣告費</label><input type="number" id="ad" min="0" step="10000"></div>
+        <div class="f"><label for="staff">AW 自建人力與系統</label><input type="number" id="staff" min="0" step="10000"></div>
+      </div>
+      <div class="f">
+        <span class="flab" id="yrlab">AW 合約年度</span>
+        <div class="seg" role="group" aria-labelledby="yrlab">
+          <button type="button" id="y1">第 1 年<small>預付 $35 萬，可抵分潤</small></button>
+          <button type="button" id="y2">第 2–5 年<small>每年最低保證 $75 萬</small></button>
+        </div>
+        <small class="hint">年度保底以月平均近似：第 1 年每月至少 $29,167、第 2–5 年每月至少 $62,500；分潤超過不另付。</small>
+      </div>
+      <div class="f">
+        <span class="flab" id="awtlab">AW 分潤條件（NGR 分成／投注額底限）</span>
+        <div class="seg" role="group" aria-labelledby="awtlab" id="awTerm">
+          <button type="button" data-t="calc">計算器原設定<small>12%／0.5%</small></button>
+          <button type="button" data-t="low">低費州<small>15%／0.75%</small></button>
+          <button type="button" data-t="high">高費州<small>12%／0.25%</small></button>
+        </div>
+        <small class="hint">低／高費州為 AW 非約束性 term sheet 條件，各州歸類待確認；以最終合約為準。</small>
+      </div>
+      <button type="button" class="advbtn" id="advBtn">進階假設（倍數、費率、PS 條款）…</button>
+    </div>
+    <div class="res">
+      <div class="verdict" aria-live="polite">
+        <div><div class="who"><span class="dot" style="background:var(--slate)"></span>PS 月淨利</div><div class="big num" id="psNet"></div><div class="sub num" id="psSub"></div></div>
+        <div><div class="who"><span class="dot" style="background:var(--g)"></span>AW 月淨利</div><div class="big num" id="awNet"></div><div class="sub num" id="awSub"></div></div>
+        <div><div class="who">AW − PS</div><div class="big num" id="diff"></div><div class="sub" id="diffSub"></div></div>
+      </div>
+      <div class="tables">
+        <table class="ct"><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
+        <table class="ct"><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
+      </div>
+      <p class="calcnote"><span class="warn">AW 尚未計入自建網站與人力成本（可在左側填入）</span>；廠商費率依原始文件，入金、廣告與各項費率為 TaDa 內部假設。</p>
+    </div>
+  </div>
+  <div class="adv" id="adv" hidden>
+    <h3>進階假設</h3>
+    <div class="advgrid">
+      <div class="f"><label for="psChurn">PS Handle 倍數</label><input type="number" id="psChurn" step="0.1" min="0"></div>
+      <div class="f"><label for="awChurn">AW Handle 倍數</label><input type="number" id="awChurn" step="0.1" min="0"></div>
+      <div class="f"><label for="promo">獎金、活動 %（佔入金）</label><input type="number" id="promo" step="0.1" min="0"></div>
+      <div class="f"><label for="cb">刷退、詐欺 %（佔入金）</label><input type="number" id="cb" step="0.1" min="0"></div>
+      <div class="f"><label for="proc">金流費率 %（佔入金）</label><input type="number" id="proc" step="0.01" min="0"></div>
+      <div class="f"><label for="gpRate">AW 遊戲商費率 %</label><input type="number" id="gpRate" step="0.1" min="0"></div>
+      <div class="f"><label for="kyc">KYC 月費</label><input type="number" id="kyc" step="1000" min="0"></div>
+      <div class="f"><label for="geo">Geolocation 月費</label><input type="number" id="geo" step="1000" min="0"></div>
+    </div>
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="psCliff">PS 級距整筆適用（GP 落在哪一級，整筆適用該級比例）；取消則改為累進。<span class="warn">整筆或累進待確認</span></label>
+      <label class="check"><input type="checkbox" id="psProc">PS 計入金流手續費（PS 條款附註 1 列為 Client 負擔）</label>
+      <label class="check"><input type="checkbox" id="psSingle">PS 單一州營運，設定費 5 折</label>
+      <label class="check"><input type="checkbox" id="psWaive">PS 年費豁免（12 個月中 7 個月 GP 超過 $100 萬）</label>
+      <label class="check"><input type="checkbox" id="psKyc">PS 另計 KYC／Geo（條款未載明，預設不計）</label>
+    </div>
+    <div class="advact"><button type="button" id="reset">還原預設值</button><button type="button" class="pri" id="advClose">完成</button></div>
+  </div>
+  <span class="pg">10</span>
+</section>
+
+<!-- 11 計算說明與來源 -->
+<section class="slide" data-title="計算說明與來源">
+  <div class="hd"><span class="no">11</span><h2>計算說明與來源</h2></div>
+  <div class="m2">
+    <div class="mc">
+      <h3><span class="dot" style="background:var(--slate)"></span>PS（Potent Systems）</h3>
+      <ol>
+        <li>Handle ＝ 入金 × Handle 倍數；GGR ＝ Handle × Takeout 20.08%</li>
+        <li>直接成本 ＝ Handle × 9.86%（賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%）</li>
+        <li>Gross Profit ＝ GGR − 直接成本</li>
+        <li>TaDa 分成依每月 GP 級距：$100 萬以下 60%、$100–500 萬 70%、$500–1,000 萬 75%、超過 $1,000 萬 80%（<span class="warn">整筆或累進待確認</span>，預設整筆）</li>
+        <li>淨利 ＝ TaDa 分成 − 廣告、獎金活動、刷退詐欺、金流手續費、年費 $4 萬 ÷ 12、設定費 $10 萬 ÷ 12</li>
+      </ol>
+    </div>
+    <div class="mc">
+      <h3><span class="dot" style="background:var(--g)"></span>AW（AmWest，B Pool）</h3>
+      <ol>
+        <li>Handle ＝ 入金 × Handle 倍數；GGR ＝ Handle × Takeout 7.75%</li>
+        <li>COS ＝ Handle × 1.66%（pool guarantees、賽道內容、監管費與稅、host fees、資料費、tote 等）</li>
+        <li>NGR ＝ GGR − COS − 獎金活動 − 金流 − 刷退詐欺 − KYC − Geolocation</li>
+        <li>AW 分成 ＝ MAX（NGR × 分成率，Handle × 底限）；計算器原設定 12%／0.5%，term sheet 低費州 15%／0.75%、高費州 12%／0.25%</li>
+        <li>年度保底：第 1 年 $35 萬預付、可抵分潤；第 2–5 年每年至少 $75 萬（皆以月平均近似）</li>
+        <li>遊戲商 ＝（GGR − COS）× 遊戲商費率；TaDa 分成 ＝ NGR − AW 分成 − 遊戲商</li>
+        <li>淨利 ＝ TaDa 分成 − 廣告 − 自建人力與系統</li>
+      </ol>
+    </div>
+  </div>
+  <div class="srcbox"><b>資料來源：</b>PS：Potent Platform Terms（2026/01/01）、Platform Functionality。AW：AmWest B-Pool Economics（AmWager Average）、AW 非約束性 term sheet（以最終合約為準）。Handle 倍數、獎金活動、刷退詐欺、金流手續費、KYC／Geo 為 TaDa 內部假設。</div>
+  <span class="pg">11</span>
+</section>
+
+</div>
+
+<div class="ctl" id="ctl">
+  <button type="button" class="arrow" id="prev" aria-label="上一頁">‹</button>
+  <span id="cnt"></span>
+  <button type="button" class="arrow" id="next" aria-label="下一頁">›</button>
+  <button type="button" id="tocBtn" aria-expanded="false">目錄</button>
+  <button type="button" id="fsBtn">全螢幕</button>
+</div>
+<div class="toc" id="toc" hidden><ol id="tocList"></ol></div>
+
+<script>
+// ===== 試算公式（沿用白牌計算器；AW 改依 term sheet：$35 萬為預付分潤、分潤條件可切換）
+const AWT={calc:{r:.12,f:.005},low:{r:.15,f:.0075},high:{r:.12,f:.0025}};
+function calc(p){
+  const D=p.deposit;
+  // ---- PS
+  const ph=D*p.psChurn, pg=ph*0.2008;
+  const pcLines=[['Host Track Fees',0.07],['Game Provider Fees',0.006],['Source Market Fees',0.0149],['Tote Fee',0.004],['Interface Tote Fees',0.0007],['North Dakota Tax',0.0025],['Charity Payment',0.0005]];
+  const pc=pcLines.reduce((a,[,r])=>a+ph*r,0), pgp=pg-pc;
+  const tiers=[[1e6,0.6],[5e6,0.7],[1e7,0.75],[Infinity,0.8]];
+  let prev=0,pt=0;
+  if(p.psCliff){const t=tiers.find(([cap])=>pgp<=cap); pt=pgp*t[1];}
+  else{for(const [cap,r] of tiers){const seg=Math.max(Math.min(pgp,cap)-prev,0); pt+=seg*r; prev=cap;}}
+  if(pgp<0) pt=pgp*0.6;
+  const pp=pgp-pt;
+  const psVar=D*(p.promo+p.cb+(p.psProc?p.proc:0))+(p.psKyc?p.kyc+p.geo:0);
+  const psFee=(p.psWaive?0:40000/12)+(p.psSingle?50000:100000)/12;
+  const pn=pt-psVar-psFee-p.ad;
+  // ---- AW
+  const t=AWT[p.awTerm]||AWT.calc;
+  const ah=D*p.awChurn, ag=ah*0.0775, ac=ah*0.0166;
+  const aPre=D*(p.promo+p.proc+p.cb)+p.kyc+p.geo;
+  const angr=ag-ac-aPre;
+  const byNgr=angr*t.r, byFloor=ah*t.f, share=Math.max(byNgr,byFloor);
+  const awMin=p.awYear2?750000/12:350000/12;
+  const awPay=Math.max(share,awMin);
+  const agp=(ag-ac)*p.gpRate, at=angr-awPay-agp;
+  const an=at-p.ad-p.staff;
+  return {D,ps:{h:ph,ggr:pg,c:pc,gp:pgp,tada:pt,partner:pp,var:psVar,fee:psFee,net:pn},
+          aw:{h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,t,byNgr,byFloor,share,min:awMin,pay:awPay,gpf:agp,tada:at,net:an}};
+}
+
+const DEF={deposit:6000000,ad:800000,staff:0,psChurn:4.024,awChurn:8,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
+  awYear2:false,awTerm:'calc',psCliff:true,psProc:true,psSingle:false,psWaive:false,psKyc:false};
+let S=Object.assign({},DEF);   // 簡報用：每次打開都從預設情境開始，不記住上次的輸入
+const $=id=>document.getElementById(id);
+const numIds=['deposit','ad','staff','psChurn','awChurn','promo','cb','proc','gpRate','kyc','geo'];
+const chkIds=['psCliff','psProc','psSingle','psWaive','psKyc'];
+const P=s=>({deposit:+s.deposit||0,ad:+s.ad||0,staff:+s.staff||0,psChurn:+s.psChurn||0,awChurn:+s.awChurn||0,
+  promo:(+s.promo||0)/100,cb:(+s.cb||0)/100,proc:(+s.proc||0)/100,gpRate:(+s.gpRate||0)/100,kyc:+s.kyc||0,geo:+s.geo||0,
+  awYear2:!!s.awYear2,awTerm:s.awTerm,psCliff:!!s.psCliff,psProc:!!s.psProc,psSingle:!!s.psSingle,psWaive:!!s.psWaive,psKyc:!!s.psKyc});
+const w2=v=>(v<0?'−':'')+(Math.abs(v)/1e4).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const wan=v=>(v<0?'−':'')+'$'+(Math.abs(v)/1e4).toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1})+' 萬';
+const wan0=v=>'$'+(v/1e4).toLocaleString('en-US',{maximumFractionDigits:0})+' 萬';
+const pct=(v,d)=>(v*100).toFixed(d==null?2:d)+'%';
+const pctT=v=>+(v*100).toFixed(2)+'%';
+
+// ===== 第 6 頁：固定情境（預設值），與計算器同一套公式
+(function(){
+  const p=P(DEF), r=calc(p), D=p.deposit;
+  const rows=[
+    ['累計賽馬投注額',`${w2(r.ps.h)}（入金 × ${p.psChurn}）`,`${w2(r.aw.h)}（入金 × ${p.awChurn}）`],
+    ['玩家淨輸／Takeout',`${w2(r.ps.ggr)}（投注額 20.08%）`,`${w2(r.aw.ggr)}（投注額 7.75%）`],
+    ['－賽事／稅費等直接成本',w2(r.ps.c),w2(r.aw.c)],
+    ['－活動、金流、刷退、KYC',w2(r.ps.var),w2(r.aw.pre)],
+    ['－白牌平台／額外內容分潤',w2(r.ps.partner),w2(r.aw.pay+r.aw.gpf)],
+    ['－年費／設定費月攤',w2(r.ps.fee),w2(0)],
+    ['－廣告費',w2(p.ad),w2(p.ad)],
+    ['＝試算營運餘額',w2(r.ps.net),w2(r.aw.net),'tot'],
+    ['餘額 ÷ 入金（非 GGR 淨利率）',pct(r.ps.net/D,1),pct(r.aw.net/D,1),'tot']];
+  $('s6').innerHTML=rows.map(([a,b,c,cls])=>`<tr class="${cls||''}"><td>${a}</td><td>${b}</td><td>${c}</td></tr>`).join('');
+})();
+
+// ===== 計算器
+function syncInputs(){
+  numIds.forEach(k=>{if(document.activeElement!==$(k)) $(k).value=S[k];});
+  $('depositR').value=Math.min(Math.max(S.deposit,500000),20000000);
+  chkIds.forEach(k=>$(k).checked=!!S[k]);
+  $('y1').setAttribute('aria-pressed',!S.awYear2); $('y2').setAttribute('aria-pressed',!!S.awYear2);
+  document.querySelectorAll('#awTerm button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===S.awTerm));
+  document.querySelectorAll('#presets button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.v===+S.deposit));
+}
+function rows(list){return list.map(([lab,v,h,cls,tip])=>cls==='b'
+  ?'<tr class="b" aria-hidden="true"><td>&nbsp;</td><td></td><td></td></tr>'
+  :`<tr class="${cls||''}"${tip?` title="${tip}"`:''}><td class="${cls?'':'ind'}">${lab}</td><td class="r num">${w2(v)}</td><td class="r num">${h==null?'':(typeof h==='object'?'淨利率 '+pct(h.m,1):pct(h))}</td></tr>`).join('');}
+function breakeven(key,p){const f=D=>calc(Object.assign({},p,{deposit:D}))[key].net;let lo=1e4,hi=5e8;if(f(lo)>0)return 0;if(f(hi)<0)return null;for(let i=0;i<80;i++){const m=(lo+hi)/2;f(m)>0?hi=m:lo=m;}return hi;}
+function render(){
+  syncInputs();
+  const p=P(S), r=calc(p), D=p.deposit||1, ps=r.ps, aw=r.aw;
+  const set=(id,v)=>{const el=$(id);el.textContent=wan(v);el.className='big num '+(v<0?'loss':'gain');};
+  set('psNet',ps.net); set('awNet',aw.net); set('diff',aw.net-ps.net);
+  const a100=aw.net/D*100, p100=ps.net/D*100, d=aw.net-ps.net;
+  const m100=v=>(v<0?'−$':'$')+Math.abs(v).toFixed(1);
+  $('psSub').textContent=`每 $100 入金淨賺 ${m100(p100)}`;
+  $('awSub').textContent=`每 $100 入金淨賺 ${m100(a100)}`+(p.staff?'':'（未含自建成本）');
+  $('diffSub').textContent=d>0?'AW 自建人力與系統月成本低於此數，AW 才划算':'目前條件下 PS 較划算';
+  const hp=(v,h)=>h?v/h:0;
+  const awLab=aw.pay>aw.share?(p.awYear2?'→ To AmWest（年保底月均）':'→ To AmWest（預付月均）')
+    :(aw.byFloor>aw.byNgr?`→ To AmWest（投注額底限 ${pctT(aw.t.f)}）`:`→ To AmWest（NGR ${pctT(aw.t.r)}）`);
+  const psG=[
+    [['入金 Cash In',D,null]],
+    [[`Handle（入金 × ${p.psChurn}）`,ps.h,null,'k']],
+    [['Takeout（GGR）',ps.ggr,hp(ps.ggr,ps.h),'k']],
+    [['－ 賽事／稅費等直接成本',ps.c,hp(ps.c,ps.h),'','賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%']],
+    [['Gross Profit（可分潤）',ps.gp,hp(ps.gp,ps.h),'k']],
+    [['→ To Potent',ps.partner,hp(ps.partner,ps.h)]],
+    [[`→ To TaDa（${ps.gp>0?(ps.tada/ps.gp*100).toFixed(1):'60.0'}%）`,ps.tada,hp(ps.tada,ps.h),'t']],
+    [['－ 活動、金流、刷退'+(p.psKyc?'、KYC':''),ps.var,null],['－ 年費／設定費月攤',ps.fee,null],['－ 廣告費',p.ad,null]],
+    [['淨利',ps.net,{m:ps.net/D},'n']]];
+  const awG=[
+    [['入金 Cash In',D,null]],
+    [[`Handle（入金 × ${p.awChurn}）`,aw.h,null,'k']],
+    [['Takeout（GGR）',aw.ggr,hp(aw.ggr,aw.h),'k']],
+    [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['－ 活動、金流、刷退、KYC',aw.pre,null]],
+    [['NGR（可分潤）',aw.ngr,hp(aw.ngr,aw.h),'k']],
+    [[awLab,aw.pay,hp(aw.pay,aw.h)],[`→ Game Provider（${pctT(p.gpRate)}）`,aw.gpf,hp(aw.gpf,aw.h)]],
+    [['→ To TaDa',aw.tada,hp(aw.tada,aw.h),'t']],
+    [['－ 廣告費',p.ad,null],['－ 自建人力與系統',p.staff,null]],
+    [['淨利',aw.net,{m:aw.net/D},'n']]];
+  const blank=['',0,null,'b'], psR=[], awR=[];
+  psG.forEach((g,i)=>{const n=Math.max(g.length,awG[i].length);
+    psR.push(...g.concat(Array(n-g.length).fill(blank))); awR.push(...awG[i].concat(Array(n-awG[i].length).fill(blank)));});
+  $('psT').innerHTML=rows(psR); $('awT').innerHTML=rows(awR);
+  // 第 9 頁摘要
+  const be1=breakeven('ps',p), be2=breakeven('aw',p);
+  const fb=b=>b===null?'超出試算範圍':b===0?'已獲利':'約 $'+Math.ceil(b/1e4).toLocaleString('en-US')+' 萬';
+  $('s1h').textContent=(ps.net>0&&aw.net>0)?`分潤效率：AW 約為 PS 的 ${(a100/p100).toFixed(1)} 倍`:'分潤效率：AW 每 $100 入金淨賺較多';
+  $('s1a').textContent=`假設月入金：${wan0(D)}`;
+  $('s1b').textContent=`每 $100 入金：AW 淨賺 ${m100(a100)}，PS ${m100(p100)}`;
+  $('s2a').textContent=`假設月廣告成本：${wan0(p.ad)}`;
+  $('s2b').textContent=`損益兩平點：AW 月入金${fb(be2)}（PS ${fb(be1)}）`;
+  $('s3a').textContent=d>0?`月入金 ${wan0(D)} 時，AW 自建人力與系統月成本須低於 ${wan(d)}，才比 PS 划算`:`月入金 ${wan0(D)} 時，PS 較划算`;
+}
+numIds.forEach(k=>$(k).addEventListener('input',e=>{S[k]=e.target.value===''?0:+e.target.value;render();}));
+$('depositR').addEventListener('input',e=>{S.deposit=+e.target.value;render();});
+chkIds.forEach(k=>$(k).addEventListener('change',e=>{S[k]=e.target.checked;render();}));
+document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>{S.deposit=+b.dataset.v;render();}));
+document.querySelectorAll('#awTerm button').forEach(b=>b.addEventListener('click',()=>{S.awTerm=b.dataset.t;render();}));
+$('y1').addEventListener('click',()=>{S.awYear2=false;render();});
+$('y2').addEventListener('click',()=>{S.awYear2=true;render();});
+$('reset').addEventListener('click',()=>{S=Object.assign({},DEF);render();});
+$('advBtn').addEventListener('click',()=>{$('adv').hidden=false;$('psChurn').focus();});
+$('advClose').addEventListener('click',()=>{$('adv').hidden=true;$('advBtn').focus();});
+render();
+
+// ===== 切頁
+const stage=$('stage'), slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+function fit(){
+  const s=Math.min(innerWidth/1600,innerHeight/900);
+  stage.style.transform=`scale(${s})`;
+  stage.style.left=((innerWidth-1600*s)/2)+'px';
+  stage.style.top=((innerHeight-900*s)/2)+'px';
+}
+function go(i){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  if(document.activeElement&&slides[cur].contains(document.activeElement)) document.activeElement.blur();
+  slides.forEach((s,k)=>{s.classList.toggle('on',k===i); s.setAttribute('aria-hidden',k!==i);});
+  cur=i; $('adv').hidden=true;
+  $('cnt').textContent=`${i+1} / ${slides.length}`;
+  document.querySelectorAll('#tocList button').forEach((b,k)=>b.setAttribute('aria-current',k===i));
+  try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+}
+const idxOf=id=>slides.findIndex(s=>s.id===id);
+$('tocList').innerHTML=slides.map((s,k)=>`<li><button type="button" data-i="${k}"><span>${k+1}</span>${s.dataset.title}</button></li>`).join('');
+document.querySelectorAll('#tocList button').forEach(b=>b.addEventListener('click',()=>{go(+b.dataset.i);toggleToc(false);}));
+function toggleToc(open){$('toc').hidden=!open;$('tocBtn').setAttribute('aria-expanded',open);}
+$('tocBtn').addEventListener('click',()=>toggleToc($('toc').hidden));
+$('prev').addEventListener('click',()=>go(cur-1));
+$('next').addEventListener('click',()=>go(cur+1));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(idxOf(b.dataset.goto))));
+$('fsBtn').addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();});
+document.addEventListener('keydown',e=>{
+  if(e.altKey||e.ctrlKey||e.metaKey) return;
+  const tg=e.target, tag=tg.tagName, inField=tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT';
+  if(e.key==='Escape'){ if(!$('adv').hidden){$('adv').hidden=true;return;} toggleToc(false); return; }
+  if(e.key==='PageDown'){e.preventDefault();go(cur+1);return;}
+  if(e.key==='PageUp'){e.preventDefault();go(cur-1);return;}
+  if(inField) return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();go(cur+1);}
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(cur-1);}
+  else if(e.key===' '&&tag!=='BUTTON'){e.preventDefault();go(e.shiftKey?cur-1:cur+1);}
+  else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(slides.length-1);}
+  else if(e.key==='f'||e.key==='F'){$('fsBtn').click();}
+});
+let tx=null;
+stage.addEventListener('touchstart',e=>{tx=/INPUT|BUTTON|LABEL/.test(e.target.tagName)?null:e.touches[0].clientX;},{passive:true});
+stage.addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)go(dx<0?cur+1:cur-1);tx=null;});
+let hideT;
+function showCtl(){$('ctl').classList.add('show');clearTimeout(hideT);hideT=setTimeout(()=>$('ctl').classList.remove('show'),2500);}
+document.addEventListener('mousemove',showCtl);
+addEventListener('resize',fit);
+fit();
+go((parseInt((location.hash||'').slice(1),10)||1)-1);
+showCtl();
+</script>
+</body>
+</html>
