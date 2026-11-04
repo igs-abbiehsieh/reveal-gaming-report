@@ -310,7 +310,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
         <span class="vnote">HorsePlay 官方教學影片，實際操作畫面（需連網）</span>
       </div>
     </div>
-    <div class="chap" id="chap"><h3>點選段落播放</h3></div>
+    <div class="chap" id="chap"><h3>點選段落跳轉（從 0:45 起）</h3></div>
   </div>
   <p class="src">來源：Horseplay Games 官方 YouTube〈Horseplay 101: How to Deposit, Buy Credits, and Play〉；段落依影片官方時間軸。</p>
   <span class="pg">4</span>
@@ -654,27 +654,29 @@ $('advBtn').addEventListener('click',()=>{$('adv').hidden=false;$('psChurn').foc
 $('advClose').addEventListener('click',()=>{$('adv').hidden=true;$('advBtn').focus();});
 render();
 
-// ===== 第 4 頁影片：YouTube 官方影片，點段落只播該段，播到段尾自動暫停
-const YT_ID='fchfE9pHtBw';
-const YT_CH=[ // [按鈕文字, 開始秒, 結束秒, 重點段]（段落依影片說明欄的官方時間軸）
-  ['完整影片',0,211],['平台特色',16,45],['現金錢包 vs 代幣',45,76],
-  ['① 儲值',76,103,1],['② 購買代幣',123,147,1],['③ 開始遊玩',160,182,1]];
+// ===== 第 4 頁影片：YouTube 官方影片，從 0:45 起播，可隨時點段落跳轉，播到片尾前自動暫停
+const YT_ID='fchfE9pHtBw', YT_FROM=45, YT_END=211;
+const YT_CH=[ // [按鈕文字, 開始秒, 重點段]（段落依影片說明欄的官方時間軸）
+  ['現金錢包 vs 代幣',45],['① 儲值',76,1],['付款安全',103],['② 購買代幣',123,1],
+  ['首次購買加碼',147],['③ 開始遊玩',160,1],['結尾',182]];
 let yt=null, ytReady=false, ytSeg=null, ytTimer=null;
 const mmss=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
-$('chap').insertAdjacentHTML('beforeend',YT_CH.map(([t,a,b,k],i)=>`<button type="button" data-seg="${i}"${k?' class="key"':''}>${t}<span>${mmss(a)}–${mmss(b)}</span></button>`).join(''));
+$('chap').insertAdjacentHTML('beforeend',YT_CH.map(([t,a,k],i)=>`<button type="button" data-seg="${i}"${k?' class="key"':''}>${t}<span>${mmss(a)}–${mmss(i+1<YT_CH.length?YT_CH[i+1][1]:YT_END)}</span></button>`).join(''));
 function ytMark(){document.querySelectorAll('#chap button').forEach(b=>b.setAttribute('aria-pressed',ytSeg!=null&&+b.dataset.seg===ytSeg));}
-function ytWatch(){clearInterval(ytTimer);ytTimer=setInterval(()=>{if(!ytReady||ytSeg==null)return;if(yt.getCurrentTime()>=YT_CH[ytSeg][2]-0.25){yt.pauseVideo();clearInterval(ytTimer);}},200);}
+function ytWatch(){clearInterval(ytTimer);ytTimer=setInterval(()=>{if(!ytReady)return; const t=yt.getCurrentTime();
+  if(t>=YT_END-0.3){yt.pauseVideo();clearInterval(ytTimer);return;}
+  let s=null; YT_CH.forEach(([,a],i)=>{if(t>=a-0.5)s=i;}); if(s!==ytSeg){ytSeg=s;ytMark();}},250);}
 function ytStart(){ // 先試著有聲播放；瀏覽器擋下時改靜音再播
   yt.playVideo(); ytWatch();
   setTimeout(()=>{if(ytReady&&yt.getPlayerState()!==1&&yt.getPlayerState()!==3){yt.mute();yt.playVideo();ytSound();}},1500);}
 function ytPlaySeg(i){if(!ytReady)return; ytSeg=i; ytMark(); yt.seekTo(YT_CH[i][1],true); ytStart();}
 function ytToggle(){if(!ytReady)return; if(yt.getPlayerState()===1){yt.pauseVideo();return;}
-  if(ytSeg==null){ytPlaySeg(0);return;} if(yt.getCurrentTime()>=YT_CH[ytSeg][2]-0.5) yt.seekTo(YT_CH[ytSeg][1],true); ytStart();}
+  const t=yt.getCurrentTime(); if(t<YT_FROM-1||t>=YT_END-0.5){ytPlaySeg(0);return;} ytStart();}
 function ytPause(){clearInterval(ytTimer); if(ytReady) yt.pauseVideo();}
 function ytSound(){$('vSound').textContent=ytReady&&yt.isMuted()?'開聲音':'靜音';}
 window.onYouTubeIframeAPIReady=function(){
   yt=new YT.Player('ytp',{videoId:YT_ID,host:'https://www.youtube-nocookie.com',
-    playerVars:{controls:0,rel:0,modestbranding:1,playsinline:1,iv_load_policy:3,disablekb:1,fs:0,cc_load_policy:0},
+    playerVars:{start:YT_FROM,controls:0,rel:0,modestbranding:1,playsinline:1,iv_load_policy:3,disablekb:1,fs:0,cc_load_policy:0},
     events:{onReady:()=>{ytReady=true;ytSound();},onStateChange:()=>setTimeout(ytSound,300)}});
 };
 document.querySelectorAll('#chap button').forEach(b=>b.addEventListener('click',()=>ytPlaySeg(+b.dataset.seg)));
