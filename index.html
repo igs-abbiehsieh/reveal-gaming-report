@@ -675,7 +675,7 @@ function ytSound(){$('vSound').textContent=ytReady&&yt.isMuted()?'開聲音':'�
 window.onYouTubeIframeAPIReady=function(){
   yt=new YT.Player('ytp',{videoId:YT_ID,host:'https://www.youtube-nocookie.com',
     playerVars:{controls:0,rel:0,modestbranding:1,playsinline:1,iv_load_policy:3,disablekb:1,fs:0,cc_load_policy:0},
-    events:{onReady:()=>{ytReady=true;ytSound();}}});
+    events:{onReady:()=>{ytReady=true;ytSound();},onStateChange:()=>setTimeout(ytSound,300)}});
 };
 document.querySelectorAll('#chap button').forEach(b=>b.addEventListener('click',()=>ytPlaySeg(+b.dataset.seg)));
 $('vCover').addEventListener('click',ytToggle);
