@@ -127,7 +127,7 @@ a{color:var(--gd)}
 
 /* 10 計算器 */
 .calc{display:grid;grid-template-columns:380px 1fr;gap:28px;margin-top:26px}
-.panel{background:var(--card);border-radius:14px;padding:22px 22px;display:flex;flex-direction:column;gap:18px;height:712px}
+.panel{background:var(--card);border-radius:14px;padding:22px 22px;display:flex;flex-direction:column;gap:18px;height:692px}
 .f label,.flab{display:block;font-size:17.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .hint{display:block;color:var(--mu);font-size:14.5px;margin-top:6px;line-height:1.45}
@@ -142,7 +142,9 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 .seg button small{display:block;font-size:14px;font-weight:400;opacity:.85}
 .seg button[aria-pressed=true]{background:var(--g);color:#fff}
 .advbtn{margin-top:auto;border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font-size:16px;font-weight:700;cursor:pointer;text-align:left}
-.res{display:flex;flex-direction:column;gap:14px;min-width:0}
+.res{min-width:0;height:692px}
+.res .tables{height:100%}
+.res .ct{height:100%}
 .verdict{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .verdict>div{padding:14px 22px;border-left:1px solid var(--line)}
 .verdict>div:first-child{border-left:0}
@@ -164,7 +166,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 .ct tr.n td{background:var(--tot);font-weight:900}
 .ct tr.b td{color:transparent}
 .hps{background:var(--slate)} .haw{background:var(--g)}
-.calcnote{font-size:16px;color:var(--mu);margin:0;line-height:1.5}
+.calcnote{font-size:14.5px;color:var(--mu);margin:auto 0 0;line-height:1.5}
+.calcnote+.advbtn{margin-top:0}
 .adv{position:absolute;left:480px;right:72px;top:146px;height:712px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.18);padding:24px 28px;z-index:3}
 .adv[hidden]{display:none}
 .adv h3{margin:0 0 16px;font-size:24px;color:var(--ink)}
@@ -302,6 +305,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
         </div>
         <small class="hint">第 1 年設定費、第 2–5 年年費都按月攤列成本；AmWest 分潤先抵這筆，超出的部分才另付。</small>
       </div>
+      <p class="calcnote"><span class="warn">AW 尚未計入自建網站與人力成本（可在上方填入）</span>；淨利未計企業所得稅。廠商費率依原始文件，其餘為 TaDa 內部假設。</p>
       <button type="button" class="advbtn" id="advBtn">進階假設（倍數、費率、PS 條款）…</button>
     </div>
     <div class="res">
@@ -309,7 +313,6 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
         <table class="ct"><colgroup><col style="width:58%"><col style="width:18%"><col style="width:24%"></colgroup><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
         <table class="ct"><colgroup><col style="width:58%"><col style="width:18%"><col style="width:24%"></colgroup><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
       </div>
-      <p class="calcnote"><span class="warn">AW 尚未計入自建網站與人力成本（可在左側填入）</span>；淨利未計企業所得稅。廠商費率依原始文件，其餘為 TaDa 內部假設。</p>
     </div>
   </div>
   <div class="adv" id="adv" hidden>
