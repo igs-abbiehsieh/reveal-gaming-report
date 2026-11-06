@@ -65,6 +65,15 @@ a{color:var(--gd)}
 /* 3 流程四步 */
 .diagram{display:block;margin:30px auto 0;max-width:1456px;max-height:590px}
 .shot{display:block;margin-top:28px;max-width:960px;max-height:600px;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.case{display:grid;grid-template-columns:auto minmax(0,1fr);gap:44px;align-items:start;margin-top:28px}
+.case .shot{margin-top:0}
+.side{max-width:560px}
+.side h4{font-size:22px;font-weight:700;color:var(--mu);margin:4px 0 12px}
+.side ul{margin:0;padding-left:28px;font-size:26px;line-height:1.42;color:var(--ink)}
+.side li{margin-bottom:16px}
+.mean{margin-top:26px;background:var(--g);color:#fff;border-radius:12px;padding:20px 24px}
+.mean b{display:block;font-size:20px;opacity:.85;margin-bottom:6px}
+.mean p{margin:0;font-size:26px;font-weight:700;line-height:1.42}
 
 /* 4 圖片版位 */
 .vid{display:grid;grid-template-columns:1056px 1fr;gap:28px;margin-top:30px}
@@ -394,8 +403,19 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－Chumba Spins（VGW）開啟封測，跨入賽馬模式">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Chumba Spins（VGW）開啟封測，跨入賽馬模式</p>
-  <img class="shot" src="img/07-chumba-spins.webp" alt="Chumba Spins 官網：Coming Soon、Closed Beta、邀請制">
-  <p class="src">來源：Chumba Spins 官網（Closed Beta 頁面）。</p>
+  <div class="case">
+    <img class="shot" src="img/07-chumba-spins.webp" alt="Chumba Spins 官網：Coming Soon、Closed Beta、邀請制">
+    <div class="side">
+      <h4>重點</h4>
+      <ul>
+        <li>VGW（Chumba Casino 母公司）推出真錢版產品</li>
+        <li>邀請制封測，已在 OK、CA、DE 上線</li>
+        <li>投注營運方為 GPN，與 HorsePlay 同一家</li>
+      </ul>
+      <div class="mean"><b>對 TaDa 的意義</b><p>最大的 sweepstakes 業者轉向賽馬模式，用的正是我們已合作的 GPN 平台</p></div>
+    </div>
+  </div>
+  <p class="src">來源：Chumba Spins 官網（Closed Beta 頁面）；Sweepsy，2026/11/03。</p>
   <span class="pg"></span>
 </section>
 
@@ -403,8 +423,19 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－Fanatics 收購 GiddyUp，跨入賽馬模式">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Fanatics 收購 GiddyUp，跨入賽馬模式</p>
-  <img class="shot" src="img/08-giddyup-fanatics.webp" alt="Sweepsy 報導：GiddyUp 停止營運，配圖標示 Acquired by Fanatics Casino">
-  <p class="src">來源：Sweepsy，2026/10/14〈GiddyUp Set To End Operations Soon, But Unclear If Temporary Or Permanent〉。</p>
+  <div class="case">
+    <img class="shot" src="img/08-giddyup-fanatics.webp" alt="Sweepsy 報導：GiddyUp 停止營運，配圖標示 Acquired by Fanatics Casino">
+    <div class="side">
+      <h4>重點</h4>
+      <ul>
+        <li>GiddyUp 由 KHK Games 經營，透過 AmWest 投注</li>
+        <li>10/15 停止購買、10/19 關閉遊戲、11/2 停止提款</li>
+        <li>由 Fanatics Casino 收購；EKG 10 月報告亦指其被大型合規業者收購</li>
+      </ul>
+      <div class="mean"><b>對 TaDa 的意義</b><p>合規大廠以收購方式進場賽馬模式，AmWest 上的白牌品牌具有被收購的價值</p></div>
+    </div>
+  </div>
+  <p class="src">來源：Sweepsy，2026/10/14〈GiddyUp Set To End Operations Soon, But Unclear If Temporary Or Permanent〉；EKG Recap，2026/10，pp. 3–4。</p>
   <span class="pg"></span>
 </section>
 
@@ -412,7 +443,18 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式</p>
-  <img class="shot" src="img/09-hardrock-lw.png" alt="Hard Rock Bet 新聞：Huff N' More Puff 在佛州 Real Money Games powered by Past Motor Racing 上線">
+  <div class="case">
+    <img class="shot" src="img/09-hardrock-lw.png" alt="Hard Rock Bet 新聞：Huff N' More Puff 在佛州 Real Money Games powered by Past Motor Racing 上線">
+    <div class="side">
+      <h4>重點</h4>
+      <ul>
+        <li>11/5 上架 L&amp;W〈Huff N’ More Puff〉，是佛州賽車產品第一款 L&amp;W 遊戲</li>
+        <li>賭場知名 IP 首度進入 Hard Rock Bet 佛州賽車產品</li>
+        <li>結果由過去賽車的投注決定，畫面以轉輪與獎勵揭曉</li>
+      </ul>
+      <div class="mean"><b>對 TaDa 的意義</b><p>一線大廠 IP 進入賽車模式，內容競爭將升溫</p></div>
+    </div>
+  </div>
   <p class="src">來源：Hard Rock Bet 官方新聞，2026/11/05〈Huff N’ More Puff Makes Its Florida Debut on Hard Rock Bet〉。</p>
   <span class="pg"></span>
 </section>
@@ -421,7 +463,18 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino</p>
-  <img class="shot" src="img/10-3oaks-lw.webp" alt="報導：3 Oaks Gaming 與 Light &amp; Wonder 簽訂發行協議，透過 OpenGaming 平台擴大受監管市場">
+  <div class="case">
+    <img class="shot" src="img/10-3oaks-lw.webp" alt="報導：3 Oaks Gaming 與 Light &amp; Wonder 簽訂發行協議，透過 OpenGaming 平台擴大受監管市場">
+    <div class="side">
+      <h4>重點</h4>
+      <ul>
+        <li>10/26 宣布與 L&amp;W 簽訂發行協議</li>
+        <li>透過 OpenGaming 平台：6,500+ 款遊戲、60+ 工作室、約 36 個受監管市場</li>
+        <li>3 Oaks 原已布局 AmWest 賽馬模式</li>
+      </ul>
+      <div class="mean"><b>對 TaDa 的意義</b><p>我們也正在促進與 Light &amp; Wonder 的合作，加大 Online Casino 的擴散廣度</p></div>
+    </div>
+  </div>
   <p class="src">來源：PlayUSA〈3 Oaks Gaming Joins Light &amp; Wonder Network to Expand Global Slot Reach〉，2026/10。</p>
   <span class="pg"></span>
 </section>
