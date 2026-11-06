@@ -97,18 +97,11 @@ a{color:var(--gd)}
 .go{display:inline-block;font-size:22px;font-weight:700;color:var(--gd);text-decoration:underline;text-underline-offset:5px;background:none;border:0;cursor:pointer;padding:0}
 
 /* 7 每 $100 */
-.c2{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:36px}
-.pc{height:516px;border-radius:12px;background:var(--card);padding:26px 34px 0;color:var(--ink)}
-.pc.hl{background:var(--g);color:#fff}
-.pc .pill{width:336px;text-align:center;font-size:22px;padding:7px 0}
-.pc.hl .pill{background:#fff;color:var(--g)}
-.pc h3{font-size:42px;font-weight:900;margin:12px 0 6px}
-.pc .per{font-size:22px;font-weight:700;margin:0 0 16px}
-.pc .eq{font-size:27px;font-weight:700;margin:0 0 22px;line-height:1.25}
-.pc .lab{font-size:27px;font-weight:700;margin:0 0 8px}
-.pc .calc7{font-size:27px;margin:0 0 26px;line-height:1.25}
-.pc .res7{font-size:27px;font-weight:700;margin:0;line-height:1.25}
-.s7foot{font-size:22px;font-weight:700;color:var(--g);margin:6px 0 0}
+.pmr{margin-top:32px;font-size:24px}
+.pmr td{padding:11px 14px}
+.pmr .small{margin-left:12px;font-size:16px}
+.pmr .tbd{color:var(--mu)}
+.s7foot{font-size:22px;font-weight:700;color:var(--g);margin:18px 0 0}
 
 /* 8 市場三列 */
 .rows3{display:grid;gap:26px;margin-top:62px}
@@ -351,28 +344,22 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="賽車 PMR、彩券 iLottery：獲利結構">
   <div class="hd"><span class="no">7</span><h2>賽車 PMR、彩券 iLottery：獲利結構</h2></div>
   <p class="kicker">同樣扣除玩家獎金，但營運主體、稅費基礎與供應商收入不同</p>
-  <div class="c2">
-    <div class="pc hl">
-      <span class="pill">佛州｜情境假設</span>
-      <h3>賽車 PMR</h3>
-      <p class="per">每 $100 投注額；非儲值金額</p>
-      <p class="eq">玩家返還（假設）$92<br>GGR ＝ $100 − $92 ＝ $8</p>
-      <p class="lab">稅費與情境試算</p>
-      <p class="calc7">若按直接投注分成 13.75%：<br>$8 × 13.75% ＝ $1.10</p>
-      <p class="res7">扣州分成後 $6.90<br>尚未扣內容、營運與其他適用稅費</p>
-    </div>
-    <div class="pc">
-      <span class="pill">Kentucky｜FY2024</span>
-      <h3>彩券 iLottery eInstant</h3>
-      <p class="per">每 $100 彩券銷售額</p>
-      <p class="eq">玩家獎金 $87.20（歷史平均）<br>Game margin ＝ $12.80</p>
-      <p class="lab">稅費與情境試算</p>
-      <p class="calc7">IGT 費率 16.99% × 淨銷售：<br>以 $12.80 近似合約淨銷售 → $2.17</p>
-      <p class="res7">扣供應商費後約 $10.63<br>尚未扣其他費用，再形成州公益盈餘</p>
-    </div>
-  </div>
-  <p class="s7foot">各州制度不同；PMR 稅基仍待核實。州彩券盈餘繳庫不是民營站台的博彩稅。</p>
-  <p class="src">來源：Hard Rock Bet 官網；Florida 2021 Compact 州議會分析；Kentucky Lottery FY2024／FY2025 審計報告。<br>IGT 正式計價採統計派彩率；$2.17 僅用歷史實際獎金率近似估算，非已揭露單品成本或淨利。</p>
+  <table class="tb pmr num">
+    <colgroup><col style="width:33%"><col style="width:33%"><col style="width:34%"></colgroup>
+    <thead><tr><th>每 $100</th><th>賽車 PMR<i>｜</i>佛州 Hard Rock</th><th>彩券 eInstant<i>｜</i>肯塔基 FY2024</th></tr></thead>
+    <tbody>
+      <tr><td>玩家投注／購買</td><td>$100.00</td><td>$100.00</td></tr>
+      <tr><td>－ 玩家返還／獎金</td><td>$92.00<span class="small">假設 RTP 92%</span></td><td>$87.20<span class="small">FY2024 實際</span></td></tr>
+      <tr class="tot"><td>＝ GGR／Game margin</td><td>$8.00</td><td>$12.80</td></tr>
+      <tr><td>－ 州分成（Compact 13.75% × GGR）</td><td>$1.10<span class="small">類別待核實</span></td><td>不適用</td></tr>
+      <tr><td>－ 聯邦投注稅（0.25% × 投注額）</td><td>$0.25<span class="small">是否適用待確認</span></td><td>不適用<span class="small">州營彩券豁免</span></td></tr>
+      <tr><td>－ 平台／遊戲供應商</td><td class="tbd">待確認</td><td>約 $2.17<span class="small">IGT 16.99%，近似</span></td></tr>
+      <tr><td>－ 行銷、金流等營運費</td><td class="tbd">待確認</td><td class="tbd">待確認</td></tr>
+      <tr class="tot"><td>＝ 營運方留存</td><td>≈ $6.65<span class="small">未扣待確認費用</span></td><td>≈ $10.63<span class="small">扣完其他費用後繳交州政府</span></td></tr>
+    </tbody>
+  </table>
+  <p class="s7foot">PMR 每 $100 投注給政府 $1.35（州 $1.10＋聯邦 $0.25）；彩券沒有稅，盈餘移轉州政府（KY FY2025 全彩券每 $100 交州 $17.74）。</p>
+  <p class="src">來源：Hard Rock Bet 官網；Florida 2021 Compact 州議會分析；Kentucky Lottery Corporation FY2025 稽核報告（p.3、p.16、p.20、附註 11、附註 13）。<br>IGT 合約計費基礎為「淨銷售 − 統計派彩」；$2.17 以實際獎金率近似。</p>
   <span class="pg">7</span>
 </section>
 
