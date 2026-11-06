@@ -152,8 +152,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 .big{font-size:48px;font-weight:900;line-height:1.1;margin:4px 0 2px}
 .sub{color:var(--mu);font-size:16px}
 .loss{color:var(--loss)} .gain{color:var(--gd)}
-.tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ct{width:100%;border-collapse:collapse;font-size:17px;border:1px solid var(--line)}
+.tables{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.ct{width:100%;table-layout:fixed;border-collapse:collapse;font-size:17px;border:1px solid var(--line)}
 .ct th{color:#fff;font-weight:700;padding:8px 10px;text-align:left;font-size:17.5px}
 .ct th.r,.ct td.r{text-align:right}
 .ct td{padding:0 8px;height:27px;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -306,8 +306,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
     </div>
     <div class="res">
       <div class="tables">
-        <table class="ct"><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
-        <table class="ct"><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
+        <table class="ct"><colgroup><col style="width:58%"><col style="width:18%"><col style="width:24%"></colgroup><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
+        <table class="ct"><colgroup><col style="width:58%"><col style="width:18%"><col style="width:24%"></colgroup><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
       </div>
       <p class="calcnote"><span class="warn">AW 尚未計入自建網站與人力成本（可在左側填入）</span>；淨利未計企業所得稅。廠商費率依原始文件，其餘為 TaDa 內部假設。</p>
     </div>
@@ -353,7 +353,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
       <tr><td>－ 聯邦投注稅（投注 × 0.25%）</td><td>$0.25</td><td>州營彩券無稅</td></tr>
       <tr><td>－ 平台／遊戲供應商（IGT 16.99%）</td><td class="tbd">待確認</td><td>約 $2.17</td></tr>
       <tr><td>－ 行銷、金流等營運費</td><td class="tbd">待確認</td><td class="tbd">待確認</td></tr>
-      <tr class="tot"><td>＝ 營運方留存</td><td>≈ $6.65<span class="small">未扣待確認費用</span></td><td>≈ $10.63<span class="small">扣完其他費用後繳交州政府</span></td></tr>
+      <tr class="tot"><td>＝ 營運方留存</td><td>≈ $6.65</td><td>≈ $10.63</td></tr>
     </tbody>
   </table>
   <p class="s7foot">PMR 每 $100 投注給政府 $1.35（州 $1.10＋聯邦 $0.25）；彩券沒有稅，盈餘移轉州政府（KY FY2025 全彩券每 $100 交州 $17.74）。</p>
