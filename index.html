@@ -99,7 +99,8 @@ a{color:var(--gd)}
 /* 7 每 $100 */
 .pmr{margin-top:32px;font-size:24px}
 .pmr td{padding:11px 14px}
-.pmr .small{margin-left:12px;font-size:16px}
+.pmr th:nth-child(n+2),.pmr td:nth-child(n+2){text-align:center}
+.pmr .small{display:block;margin-top:2px;font-size:15px;font-weight:400}
 .pmr .tbd{color:var(--mu)}
 .s7foot{font-size:22px;font-weight:700;color:var(--g);margin:18px 0 0}
 
@@ -348,20 +349,20 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
   <p class="kicker">同樣扣除玩家獎金，但營運主體、稅費基礎與供應商收入不同</p>
   <table class="tb pmr num">
     <colgroup><col style="width:33%"><col style="width:33%"><col style="width:34%"></colgroup>
-    <thead><tr><th>每 $100</th><th>賽車 PMR<i>｜</i>佛州 Hard Rock</th><th>彩券 eInstant<i>｜</i>肯塔基 FY2024</th></tr></thead>
+    <thead><tr><th>每 $100</th><th>賽車 PMR</th><th>彩券 eInstant</th></tr></thead>
     <tbody>
       <tr><td>玩家投注／購買</td><td>$100.00</td><td>$100.00</td></tr>
-      <tr><td>－ 玩家返還／獎金</td><td>$92.00<span class="small">假設 RTP 92%</span></td><td>$87.20<span class="small">FY2024 實際</span></td></tr>
+      <tr><td>－ 玩家返還／獎金</td><td>$92.00</td><td>$87.20</td></tr>
       <tr class="tot"><td>＝ GGR／Game margin</td><td>$8.00</td><td>$12.80</td></tr>
-      <tr><td>－ 州分成（Compact 13.75% × GGR）</td><td>$1.10<span class="small">類別待核實</span></td><td>不適用</td></tr>
-      <tr><td>－ 聯邦投注稅（0.25% × 投注額）</td><td>$0.25<span class="small">是否適用待確認</span></td><td>不適用<span class="small">州營彩券豁免</span></td></tr>
-      <tr><td>－ 平台／遊戲供應商</td><td class="tbd">待確認</td><td>約 $2.17<span class="small">IGT 16.99%，近似</span></td></tr>
+      <tr><td>－ 州分成（GGR × 13.75%）</td><td>$1.10</td><td>州營彩券無稅</td></tr>
+      <tr><td>－ 聯邦投注稅（投注 × 0.25%）</td><td>$0.25</td><td>州營彩券無稅</td></tr>
+      <tr><td>－ 平台／遊戲供應商（IGT 16.99%）</td><td class="tbd">待確認</td><td>約 $2.17</td></tr>
       <tr><td>－ 行銷、金流等營運費</td><td class="tbd">待確認</td><td class="tbd">待確認</td></tr>
       <tr class="tot"><td>＝ 營運方留存</td><td>≈ $6.65<span class="small">未扣待確認費用</span></td><td>≈ $10.63<span class="small">扣完其他費用後繳交州政府</span></td></tr>
     </tbody>
   </table>
   <p class="s7foot">PMR 每 $100 投注給政府 $1.35（州 $1.10＋聯邦 $0.25）；彩券沒有稅，盈餘移轉州政府（KY FY2025 全彩券每 $100 交州 $17.74）。</p>
-  <p class="src">來源：Hard Rock Bet 官網；Florida 2021 Compact 州議會分析；Kentucky Lottery Corporation FY2025 稽核報告（p.3、p.16、p.20、附註 11、附註 13）。<br>IGT 合約計費基礎為「淨銷售 − 統計派彩」；$2.17 以實際獎金率近似。</p>
+  <p class="src">來源：州分成－Florida Senate 2025 法案分析（Compact 運彩 13.75% × Net Win）、Hard Rock Bet FAQ（PMR 屬 2021 Compact 授權的運彩）；聯邦投注稅－26 U.S.C. §4401、§4402、Chickasaw Nation v. U.S.（2001）；<br>彩券－Kentucky Lottery Corporation FY2024／FY2025 稽核報告（p.3、p.16、p.20、附註 11、附註 13）；IGT 計費基礎為「淨銷售 − 統計派彩」，$2.17 以實際獎金率近似。</p>
   <span class="pg">7</span>
 </section>
 
@@ -492,7 +493,7 @@ function calc(p){
           aw:{bet:ab,h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,byNgr,byFloor,share,annual:awAnnual,setup:awSetup,pay:awPay,gpf:agp,tada:at,net:an}};
 }
 
-const DEF={deposit:6000000,ad:800000,staff:0,psBet:8.73,psPool:40,awBet:8,awPool:100,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
+const DEF={deposit:6000000,ad:800000,staff:0,psBet:8,psPool:40,awBet:8,awPool:100,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
   awYear2:false,psCliff:true,psProc:true,psSingle:false,psWaive:false,psKyc:false};
 let S=Object.assign({},DEF);   // 簡報用：每次打開都從預設情境開始，不記住上次的輸入
 const $=id=>document.getElementById(id);
