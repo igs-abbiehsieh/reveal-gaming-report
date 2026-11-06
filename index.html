@@ -65,9 +65,10 @@ a{color:var(--gd)}
 /* 3 流程四步 */
 .diagram{display:block;margin:30px auto 0;max-width:1456px;max-height:590px}
 .shot{display:block;margin-top:28px;max-width:960px;max-height:600px;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
-.case{display:grid;grid-template-columns:auto minmax(0,1fr);gap:44px;align-items:start;margin-top:28px}
-.case .shot{margin-top:0}
-.side{max-width:560px}
+.case{display:grid;grid-template-columns:780px minmax(0,1fr);gap:40px;align-items:stretch;margin-top:28px;height:600px}
+.case .shot{margin:0;width:780px;height:600px;max-width:none;max-height:none;object-fit:contain;background:#F4F7F5;padding:14px;box-shadow:none}
+.side{background:var(--card);border-radius:12px;padding:26px 30px;display:flex;flex-direction:column}
+.case .mean{margin-top:auto}
 .side h4{font-size:22px;font-weight:700;color:var(--mu);margin:4px 0 12px}
 .side ul{margin:0;padding-left:28px;font-size:26px;line-height:1.42;color:var(--ink)}
 .side li{margin-bottom:16px}
@@ -365,7 +366,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 </section>
 
 <!-- 7 跨模式布局：Chumba Spins（VGW）開啟封測，跨入賽馬模式 -->
-<section class="slide" data-title="市場現況：跨模式布局－Chumba Spins（VGW）開啟封測，跨入賽馬模式">
+<section class="slide" data-title="市場現況：跨模式布局">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Chumba Spins（VGW）開啟封測，跨入賽馬模式</p>
   <div class="case">
@@ -385,7 +386,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 </section>
 
 <!-- 8 跨模式布局：Fanatics 收購 GiddyUp，跨入賽馬模式 -->
-<section class="slide" data-title="市場現況：跨模式布局－Fanatics 收購 GiddyUp，跨入賽馬模式">
+<section class="slide" data-title="市場現況：跨模式布局">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Fanatics 收購 GiddyUp，跨入賽馬模式</p>
   <div class="case">
@@ -405,7 +406,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 </section>
 
 <!-- 9 跨模式布局：Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式 -->
-<section class="slide" data-title="市場現況：跨模式布局－Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式">
+<section class="slide" data-title="市場現況：跨模式布局">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式</p>
   <div class="case">
@@ -425,7 +426,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 </section>
 
 <!-- 10 跨模式布局：3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino -->
-<section class="slide" data-title="市場現況：跨模式布局－3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino">
+<section class="slide" data-title="市場現況：跨模式布局">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino</p>
   <div class="case">
