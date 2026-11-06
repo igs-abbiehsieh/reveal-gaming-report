@@ -63,19 +63,8 @@ a{color:var(--gd)}
 .s2foot{margin-top:28px}
 
 /* 3 流程四步 */
-.steps{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr 30px 1fr;margin-top:52px;height:384px}
-.st{border-radius:12px;background:var(--card);padding:30px 30px 0}
-.st.hl{background:var(--g);color:#fff}
-.st .n{width:60px;height:60px;border-radius:50%;background:var(--g);color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.st.hl .n{background:#fff;color:var(--g)}
-.st h3{font-size:38px;font-weight:900;color:var(--g);margin:22px 0 12px}
-.st.hl h3{color:#fff}
-.st b{display:block;font-size:24px;color:var(--ink);margin-bottom:22px}
-.st.hl b{color:#fff}
-.st p{font-size:24px;margin:0;line-height:1.3}
-.arw{display:flex;align-items:center;justify-content:center;color:var(--g);font-size:30px;font-weight:700}
-.formula{font-size:40px;font-weight:700;color:var(--g);margin:52px 0 0}
-.fnote{font-size:22px;color:var(--mu);margin:34px 0 0 12px}
+.diagram{display:block;margin:30px auto 0;max-width:1456px;max-height:590px}
+.shot{display:block;margin-top:28px;max-width:960px;max-height:600px;border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
 
 /* 4 圖片版位 */
 .vid{display:grid;grid-template-columns:1056px 1fr;gap:28px;margin-top:30px}
@@ -283,18 +272,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="賽馬 PPGs：投注原理">
   <div class="hd"><span class="no">3</span><h2>賽馬 PPGs：投注原理</h2></div>
   <p class="kicker">以 Potent 架構說明：賽馬產生投注結果，遊戲畫面負責呈現</p>
-  <div class="steps">
-    <div class="st"><span class="n">1</span><h3>購買代幣</h3><b>玩家投入 $100</b><p>依設定比例分流<br>$40 進入賽馬投注<br>$60 直接返還部分</p></div>
-    <div class="arw">›</div>
-    <div class="st"><span class="n">2</span><h3>賽馬投注</h3><b>投注資金進入彩池</b><p>系統執行賽馬投注<br>依賽果與彩池結算<br>抽成涵蓋產業收入</p></div>
-    <div class="arw">›</div>
-    <div class="st"><span class="n">3</span><h3>結果匯總</h3><b>結算可返還金額</b><p>投注期望返還 $32<br>加直接返還 $60<br>合計期望返還 $92</p></div>
-    <div class="arw">›</div>
-    <div class="st hl"><span class="n">4</span><h3>遊戲展演</h3><b>老虎機畫面揭曉</b><p>以轉輪／獎勵動畫<br>呈現返還與獎項<br>安排派彩節奏與波動</p></div>
-  </div>
-  <p class="formula">40% 投注 × (1 − 20% 抽成) ＋ 60% 直接返還 ＝ 92% RTP</p>
-  <p class="fnote">40／60 為算術說明情境；RTP 是長期期望值，並非單次或每位玩家保證返還。</p>
-  <p class="src">來源：TaDa × Potent 會議逐字稿，2026/04/09，00:07:26–00:14:49；比例為簡化假設。</p>
+  <img class="diagram" src="img/03-ppg-principle.webp" alt="玩家投入 $100：60% 直接返還、40% 進入賽馬投注預期返還 $32，合計 $92，由遊戲畫面揭曉；整體預期 RTP 92%">
+  <p class="src">40／60 為算術說明情境；RTP 是長期期望值，並非單次或每位玩家保證返還。<br>來源：TaDa × Potent 會議逐字稿，2026/04/09，00:07:26–00:14:49；比例為簡化假設。</p>
   <span class="pg">3</span>
 </section>
 
@@ -415,6 +394,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－Chumba Spins（VGW）開啟封測，跨入賽馬模式">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Chumba Spins（VGW）開啟封測，跨入賽馬模式</p>
+  <img class="shot" src="img/07-chumba-spins.webp" alt="Chumba Spins 官網：Coming Soon、Closed Beta、邀請制">
+  <p class="src">來源：Chumba Spins 官網（Closed Beta 頁面）。</p>
   <span class="pg"></span>
 </section>
 
@@ -422,6 +403,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－Fanatics 收購 GiddyUp，跨入賽馬模式">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Fanatics 收購 GiddyUp，跨入賽馬模式</p>
+  <img class="shot" src="img/08-giddyup-fanatics.webp" alt="Sweepsy 報導：GiddyUp 停止營運，配圖標示 Acquired by Fanatics Casino">
+  <p class="src">來源：Sweepsy，2026/10/14〈GiddyUp Set To End Operations Soon, But Unclear If Temporary Or Permanent〉。</p>
   <span class="pg"></span>
 </section>
 
@@ -429,6 +412,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">Light &amp; Wonder 與 Hard Rock Bet 合作，跨入賽車模式</p>
+  <img class="shot" src="img/09-hardrock-lw.png" alt="Hard Rock Bet 新聞：Huff N' More Puff 在佛州 Real Money Games powered by Past Motor Racing 上線">
+  <p class="src">來源：Hard Rock Bet 官方新聞，2026/11/05〈Huff N’ More Puff Makes Its Florida Debut on Hard Rock Bet〉。</p>
   <span class="pg"></span>
 </section>
 
@@ -436,6 +421,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <section class="slide" data-title="市場現況：跨模式布局－3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino">
   <div class="hd"><span class="no"></span><h2>市場現況：跨模式布局</h2></div>
   <p class="kicker">3 Oaks 與 Light &amp; Wonder 合作，跨入 Online Casino</p>
+  <img class="shot" src="img/10-3oaks-lw.webp" alt="報導：3 Oaks Gaming 與 Light &amp; Wonder 簽訂發行協議，透過 OpenGaming 平台擴大受監管市場">
+  <p class="src">來源：PlayUSA〈3 Oaks Gaming Joins Light &amp; Wonder Network to Expand Global Slot Reach〉，2026/10。</p>
   <span class="pg"></span>
 </section>
 
