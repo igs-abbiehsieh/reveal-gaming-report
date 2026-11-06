@@ -76,20 +76,7 @@ a{color:var(--gd)}
 .mean p{margin:0;font-size:26px;font-weight:700;line-height:1.42}
 
 /* 4 圖片版位 */
-.vid{display:grid;grid-template-columns:1056px 1fr;gap:28px;margin-top:30px}
-.vbox{position:relative;width:1056px;height:594px;background:#000;border-radius:12px;overflow:hidden}
-.vbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.vcover{position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;cursor:pointer}
-.vctl{display:flex;gap:10px;align-items:center;margin-top:12px}
-.vctl button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 16px;font-size:16px;cursor:pointer}
-.vctl .vnote{font-size:15px;color:var(--mu);margin-left:6px}
-.chap{display:flex;flex-direction:column;gap:10px}
-.chap h3{font-size:20px;color:var(--ink);margin:0 0 2px}
-.chap button{display:flex;justify-content:space-between;align-items:baseline;text-align:left;border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 16px;font-size:21px;font-weight:700;color:var(--ink);cursor:pointer}
-.chap button span{font-size:15px;font-weight:400;color:var(--mu);font-variant-numeric:tabular-nums}
-.chap button[aria-pressed=true]{background:var(--g);border-color:var(--g);color:#fff}
-.chap button[aria-pressed=true] span{color:#fff}
-.chap .key{background:var(--card)}
+.yt{display:block;margin:20px auto 0;width:1248px;height:702px;border:0;border-radius:12px;background:#000}
 
 /* 表格 */
 .tb{width:100%;border-collapse:collapse;font-size:22px}
@@ -289,18 +276,8 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <!-- 4 投注原理（圖） -->
 <section class="slide" id="demo" data-title="賽馬 PPGs：從儲值到遊玩">
   <div class="hd"><span class="no">4</span><h2>賽馬 PPGs：從儲值到遊玩</h2></div>
-  <div class="vid">
-    <div>
-      <div class="vbox"><div id="ytp"></div><button type="button" class="vcover" id="vCover" aria-label="播放／暫停"></button></div>
-      <div class="vctl">
-        <button type="button" id="vPlay">播放／暫停</button>
-        <button type="button" id="vSound">靜音</button>
-        <span class="vnote">HorsePlay 官方教學影片，實際操作畫面（需連網）</span>
-      </div>
-    </div>
-    <div class="chap" id="chap"><h3>點選段落跳轉（從 0:45 起）</h3></div>
-  </div>
-  <p class="src">來源：Horseplay Games 官方 YouTube〈Horseplay 101: How to Deposit, Buy Credits, and Play〉；段落依影片官方時間軸。</p>
+  <iframe class="yt" id="ytf" src="https://www.youtube-nocookie.com/embed/fchfE9pHtBw?start=45&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1" title="Horseplay 101: How to Deposit, Buy Credits, and Play" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+  <p class="src">來源：Horseplay Games 官方 YouTube〈Horseplay 101: How to Deposit, Buy Credits, and Play〉。</p>
   <span class="pg">4</span>
 </section>
 
@@ -601,36 +578,11 @@ $('advBtn').addEventListener('click',()=>{$('adv').hidden=false;$('psChurn').foc
 $('advClose').addEventListener('click',()=>{$('adv').hidden=true;$('advBtn').focus();});
 render();
 
-// ===== 第 4 頁影片：YouTube 官方影片，從 0:45 起播，可隨時點段落跳轉，播到片尾前自動暫停
-const YT_ID='fchfE9pHtBw', YT_FROM=45, YT_END=211;
-const YT_CH=[ // [按鈕文字, 開始秒, 重點段]（段落依影片說明欄的官方時間軸）
-  ['現金錢包 vs 代幣',45],['① 儲值',76,1],['付款安全',103],['② 購買代幣',123,1],
-  ['首次購買加碼',147],['③ 開始遊玩',160,1],['結尾',182]];
-let yt=null, ytReady=false, ytSeg=null, ytTimer=null;
-const mmss=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
-$('chap').insertAdjacentHTML('beforeend',YT_CH.map(([t,a,k],i)=>`<button type="button" data-seg="${i}"${k?' class="key"':''}>${t}<span>${mmss(a)}–${mmss(i+1<YT_CH.length?YT_CH[i+1][1]:YT_END)}</span></button>`).join(''));
-function ytMark(){document.querySelectorAll('#chap button').forEach(b=>b.setAttribute('aria-pressed',ytSeg!=null&&+b.dataset.seg===ytSeg));}
-function ytWatch(){clearInterval(ytTimer);ytTimer=setInterval(()=>{if(!ytReady)return; const t=yt.getCurrentTime();
-  if(t>=YT_END-0.3){yt.pauseVideo();clearInterval(ytTimer);return;}
-  let s=null; YT_CH.forEach(([,a],i)=>{if(t>=a-0.5)s=i;}); if(s!==ytSeg){ytSeg=s;ytMark();}},250);}
-function ytStart(){ // 先試著有聲播放；瀏覽器擋下時改靜音再播
-  yt.playVideo(); ytWatch();
-  setTimeout(()=>{if(ytReady&&yt.getPlayerState()!==1&&yt.getPlayerState()!==3){yt.mute();yt.playVideo();ytSound();}},1500);}
-function ytPlaySeg(i){if(!ytReady)return; ytSeg=i; ytMark(); yt.seekTo(YT_CH[i][1],true); ytStart();}
-function ytToggle(){if(!ytReady)return; if(yt.getPlayerState()===1){yt.pauseVideo();return;}
-  const t=yt.getCurrentTime(); if(t<YT_FROM-1||t>=YT_END-0.5){ytPlaySeg(0);return;} ytStart();}
-function ytPause(){clearInterval(ytTimer); if(ytReady) yt.pauseVideo();}
-function ytSound(){$('vSound').textContent=ytReady&&yt.isMuted()?'開聲音':'靜音';}
-window.onYouTubeIframeAPIReady=function(){
-  yt=new YT.Player('ytp',{videoId:YT_ID,host:'https://www.youtube-nocookie.com',
-    playerVars:{start:YT_FROM,controls:0,rel:0,modestbranding:1,playsinline:1,iv_load_policy:3,disablekb:1,fs:0,cc_load_policy:0},
-    events:{onReady:()=>{ytReady=true;ytSound();},onStateChange:()=>setTimeout(ytSound,300)}});
-};
-document.querySelectorAll('#chap button').forEach(b=>b.addEventListener('click',()=>ytPlaySeg(+b.dataset.seg)));
-$('vCover').addEventListener('click',ytToggle);
-$('vPlay').addEventListener('click',ytToggle);
-$('vSound').addEventListener('click',()=>{if(!ytReady)return; yt.isMuted()?yt.unMute():yt.mute(); setTimeout(ytSound,100);});
-(function(){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);})();
+// ===== 第 4 頁影片：YouTube 原生播放器（段落、播放、暫停都用 YouTube 介面），從 0:45 起
+const ytf=$('ytf');
+function ytPause(){try{ytf.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}),'*');}catch(e){}}
+// 點過影片後鍵盤焦點會留在 YouTube 裡；1.5 秒後交還給簡報，方向鍵和簡報筆才能繼續翻頁
+addEventListener('blur',()=>setTimeout(()=>{if(document.activeElement===ytf){ytf.blur();window.focus();}},1500));
 
 // ===== 切頁
 const stage=$('stage'), slides=[...document.querySelectorAll('.slide')];
