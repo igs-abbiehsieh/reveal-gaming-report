@@ -208,7 +208,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 
 /* 控制列 */
 .ctl{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;background:rgba(18,30,26,.88);color:#fff;border-radius:999px;padding:5px 8px;font-size:14px;z-index:10;opacity:0;transition:opacity .3s;pointer-events:none}
-.ctl.show,.ctl:hover,.ctl:focus-within{opacity:1;pointer-events:auto}
+.ctl.show,.ctl:hover,.ctl:has(:focus-visible){opacity:1;pointer-events:auto}
 .ctl button{background:none;border:0;color:#fff;cursor:pointer;border-radius:999px;padding:5px 12px;font-size:14px}
 .ctl button:hover{background:rgba(255,255,255,.15)}
 .ctl .arrow{font-size:20px;line-height:1;padding:3px 12px}
@@ -336,10 +336,10 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
         <div class="f"><label for="staff">AW 自建人力與系統</label><input type="number" id="staff" min="0" step="10000"></div>
       </div>
       <div class="f">
-        <span class="flab" id="yrlab">AW 合約年度</span>
+        <span class="flab" id="yrlab">合約年度</span>
         <div class="seg" role="group" aria-labelledby="yrlab">
-          <button type="button" id="y1">第 1 年<small>預付 $35 萬，可抵分潤</small></button>
-          <button type="button" id="y2">第 2–5 年<small>年費 $75 萬，可抵分潤</small></button>
+          <button type="button" id="y1">第 1 年<small>AW 預付 $35 萬；PS 設定費月攤</small></button>
+          <button type="button" id="y2">第 2–5 年<small>AW 年費 $75 萬；PS 設定費已攤完</small></button>
         </div>
         <small class="hint">第 1 年設定費、第 2–5 年年費都按月攤列成本；AmWest 分潤先抵這筆，超出的部分才另付。</small>
       </div>
@@ -439,7 +439,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
       <tr><td>營運模式</td><td>平台、金流與客服整合<br>站外前端可自行調整　<a href="https://app.racebetwin.com/" target="_blank" rel="noopener noreferrer">Demo ↗</a><br><span class="small">Demo 帳號：info@potentsystems.com／密碼：Apple2020!</span></td><td>提供 ADW／賽馬投注服務<br>站台與營運由 TaDa 主導</td></tr>
       <tr><td>初期費用</td><td>授權／客製／部署 $10 萬<br>單州方案可減半</td><td>首年 $35 萬預付分潤<br>可抵權利金，非單純設定費</td></tr>
       <tr><td>年費／年限</td><td>年費 $4 萬，達標可豁免<br>期限：現有條款未載明</td><td>首期 5 年；第 2–5 年年費 $75 萬<br>每月 $62,500，可抵分潤</td></tr>
-      <tr><td>分潤方式</td><td>月 GP：≤100萬 60%；100–500萬 70%<br>500–1,000萬 75%；&gt;1,000萬 80%<br>整筆或累進待確認（金額為美元）</td><td>計算器：NGR 12%，保底投注額 0.5%<br>原始 term sheet 另依州別訂價*</td></tr>
+      <tr><td>分潤方式</td><td>月 GP：≤100萬 60%；100–500萬 70%<br>500–1,000萬 75%；&gt;1,000萬 80%<br>整筆或累進待確認（金額為美元）</td><td>計算器：NGR 12%，保底投注額 0.5%<br>另付遊戲商：Allocated GGR × 7%<br>原始 term sheet 另依州別訂價*</td></tr>
       <tr><td>產品彈性</td><td>使用既有平台；功能可協商<br>金流與刷退等由客戶負擔</td><td>自主調整品牌、前端與功能<br>另負擔自建人力與系統成本</td></tr>
     </tbody>
   </table>
@@ -488,22 +488,22 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
     <div class="mc">
       <h3><span class="dot" style="background:var(--slate)"></span>PS（Potent Systems）</h3>
       <ol>
-        <li>Handle ＝ 入金 × Handle 倍數；GGR ＝ Handle × Takeout 20.08%</li>
+        <li>Handle ＝ 入金 × Handle 倍數；Takeout（抽水）＝ Handle × 20.08%</li>
         <li>直接成本 ＝ Handle × 9.86%（賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%）</li>
-        <li>Gross Profit ＝ GGR − 直接成本</li>
+        <li>Gross Profit ＝ Takeout − 直接成本</li>
         <li>TaDa 分成依每月 GP 級距：$100 萬以下 60%、$100–500 萬 70%、$500–1,000 萬 75%、超過 $1,000 萬 80%（<span class="warn">整筆或累進待確認</span>，預設整筆）</li>
-        <li>淨利 ＝ TaDa 分成 − 廣告、獎金活動、刷退詐欺、金流手續費、年費 $4 萬 ÷ 12、設定費 $10 萬 ÷ 12</li>
+        <li>淨利 ＝ TaDa 分成 − 廣告、獎金活動、刷退詐欺、金流手續費、年費 $4 萬 ÷ 12、設定費 $10 萬 ÷ 12（僅第 1 年）</li>
       </ol>
     </div>
     <div class="mc">
       <h3><span class="dot" style="background:var(--g)"></span>AW（AmWest，B Pool）</h3>
       <ol>
-        <li>Handle ＝ 入金 × Handle 倍數；GGR ＝ Handle × Takeout 7.75%</li>
+        <li>Handle ＝ 入金 × Handle 倍數；Takeout（抽水）＝ Handle × 7.75%</li>
         <li>COS ＝ Handle × 1.66%（pool guarantees、賽道內容、監管費與稅、host fees、資料費、tote 等）</li>
-        <li>NGR ＝ GGR − COS − 獎金活動 − 金流 − 刷退詐欺 − KYC − Geolocation</li>
+        <li>Allocated GGR ＝ Takeout − COS；NGR ＝ Allocated GGR − 獎金活動 − 金流 − 刷退詐欺 − KYC − Geolocation</li>
         <li>AW 分成 ＝ MAX（NGR × 12%，Handle × 0.5%）</li>
         <li>設定費（月攤）＝ 第 1 年 $35 萬 ÷ 12；年費（月攤）＝ 第 2–5 年 $75 萬 ÷ 12；兩者都可用 AW 分成抵扣，To AmWest ＝ MAX（AW 分成 − 已列年費／設定費，0）</li>
-        <li>遊戲商 ＝（GGR − COS）× 遊戲商費率；TaDa 分成 ＝ NGR − To AmWest − 遊戲商</li>
+        <li>遊戲商 ＝ Allocated GGR × 7%（假設）；TaDa 分成 ＝ NGR − To AmWest − 遊戲商</li>
         <li>淨利 ＝ TaDa 分成 − 廣告 − 年費／設定費（月攤）− 自建人力與系統</li>
       </ol>
     </div>
@@ -538,7 +538,7 @@ function calc(p){
   if(pgp<0) pt=pgp*0.6;
   const pp=pgp-pt;
   const psVar=D*(p.promo+p.cb+(p.psProc?p.proc:0))+(p.psKyc?p.kyc+p.geo:0);
-  const psAnnual=p.psWaive?0:40000/12, psSetup=(p.psSingle?50000:100000)/12, psFee=psAnnual+psSetup;
+  const psAnnual=p.psWaive?0:40000/12, psSetup=p.awYear2?0:(p.psSingle?50000:100000)/12, psFee=psAnnual+psSetup;
   const pn=pt-psVar-psFee-p.ad;
   // ---- AW
   const ah=D*p.awChurn, ag=ah*0.0775, ac=ah*0.0166;
@@ -554,7 +554,7 @@ function calc(p){
           aw:{h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,byNgr,byFloor,share,annual:awAnnual,setup:awSetup,pay:awPay,gpf:agp,tada:at,net:an}};
 }
 
-const DEF={deposit:6000000,ad:800000,staff:0,psChurn:4.024,awChurn:8,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
+const DEF={deposit:6000000,ad:800000,staff:0,psChurn:3.70,awChurn:8,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
   awYear2:false,psCliff:true,psProc:true,psSingle:false,psWaive:false,psKyc:false};
 let S=Object.assign({},DEF);   // 簡報用：每次打開都從預設情境開始，不記住上次的輸入
 const $=id=>document.getElementById(id);
@@ -606,13 +606,14 @@ function render(){
   const m100=v=>(v<0?'−$':'$')+Math.abs(v).toFixed(1);
   $('psSub').textContent=`每 $100 入金淨賺 ${m100(p100)}`;
   $('awSub').textContent=`每 $100 入金淨賺 ${m100(a100)}`+(p.staff?'':'（未含自建成本）');
-  $('diffSub').textContent=d>0?'AW 自建人力與系統月成本低於此數，AW 才划算':'目前條件下 PS 較划算';
+  const thr=p.staff+d; // 未扣自建成本時 AW 比 PS 多賺的錢 = 自建成本的上限
+  $('diffSub').textContent=thr>0?`AW 自建人力與系統月成本要低於 ${wan(thr)}，才比 PS 划算`+(p.staff?`（目前填 ${wan(p.staff)}）`:''):'就算不計自建成本，PS 也較划算';
   const hp=(v,h)=>h?v/h:0;
   const awTip=`${aw.byFloor>aw.byNgr?'投注額底限 0.5%':'NGR 12%'} 分潤 ${w2(aw.share)} 萬，扣除本月已列的年費／設定費後另付`;
   const psG=[
     [['入金 Cash In',D,null]],
     [[`Handle（入金 × ${p.psChurn}）`,ps.h,null,'k']],
-    [['Takeout（GGR）',ps.ggr,hp(ps.ggr,ps.h),'k']],
+    [['Takeout（抽水）',ps.ggr,hp(ps.ggr,ps.h),'k']],
     [['－ 賽事／稅費等直接成本',ps.c,hp(ps.c,ps.h),'','賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%']],
     [['Gross Profit（可分潤）',ps.gp,hp(ps.gp,ps.h),'k']],
     [['→ Potent',ps.partner,hp(ps.partner,ps.h)]],
@@ -622,10 +623,10 @@ function render(){
   const awG=[
     [['入金 Cash In',D,null]],
     [[`Handle（入金 × ${p.awChurn}）`,aw.h,null,'k']],
-    [['Takeout（GGR）',aw.ggr,hp(aw.ggr,aw.h),'k']],
-    [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['－ 活動、金流、刷退、KYC',aw.pre,null]],
+    [['Takeout（抽水）',aw.ggr,hp(aw.ggr,aw.h),'k']],
+    [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['Allocated GGR（遊戲商基底）',aw.ggr-aw.c,hp(aw.ggr-aw.c,aw.h),'k'],['－ 活動、金流、刷退、KYC',aw.pre,null]],
     [['NGR（可分潤）',aw.ngr,hp(aw.ngr,aw.h),'k']],
-    [['→ AmWest（分潤扣除已付）',aw.pay,hp(aw.pay,aw.h),'',awTip],[`→ Game Provider（${pctT(p.gpRate)}）`,aw.gpf,hp(aw.gpf,aw.h)]],
+    [['→ AmWest（分潤扣除已付）',aw.pay,hp(aw.pay,aw.h),'',awTip],[`→ Game Provider（Allocated GGR × ${pctT(p.gpRate)}）`,aw.gpf,hp(aw.gpf,aw.h)]],
     [['→ TaDa',aw.tada,hp(aw.tada,aw.h),'t']],
     [['－ 廣告費',p.ad,null],['－ 年費（月攤）',aw.annual,p.awYear2?null:'第 2 年起'],['－ 設定費（月攤）',aw.setup,p.awYear2?'僅第 1 年':null],['－ 自建人力與系統',p.staff,null]],
     [['淨利',aw.net,{m:aw.net/D},'n']]];
@@ -636,12 +637,12 @@ function render(){
   // 第 9 頁摘要
   const be1=breakeven('ps',p), be2=breakeven('aw',p);
   const fb=b=>b===null?'超出試算範圍':b===0?'已獲利':'約 $'+Math.ceil(b/1e4).toLocaleString('en-US')+' 萬';
-  $('s1h').textContent=(ps.net>0&&aw.net>0)?`分潤效率：AW 約為 PS 的 ${(a100/p100).toFixed(1)} 倍`:'分潤效率：AW 每 $100 入金淨賺較多';
+  $('s1h').textContent=(ps.net>0&&aw.net>0)?`獲利效率：AW 約為 PS 的 ${(a100/p100).toFixed(1)} 倍`:'獲利效率：AW 每 $100 入金淨賺較多';
   $('s1a').textContent=`假設月入金：${wan0(D)}`;
   $('s1b').textContent=`每 $100 入金：AW 淨賺 ${m100(a100)}，PS ${m100(p100)}`;
   $('s2a').textContent=`假設月廣告成本：${wan0(p.ad)}`;
   $('s2b').textContent=`損益兩平點：AW 月入金${fb(be2)}（PS ${fb(be1)}）`;
-  $('s3a').textContent=d>0?`月入金 ${wan0(D)} 時，AW 自建人力與系統月成本須低於 ${wan(d)}，才比 PS 划算`:`月入金 ${wan0(D)} 時，PS 較划算`;
+  $('s3a').textContent=thr>0?`月入金 ${wan0(D)} 時，AW 自建人力與系統月成本須低於 ${wan(thr)}，才比 PS 划算`:`月入金 ${wan0(D)} 時，就算不計自建成本，PS 也較划算`;
 }
 numIds.forEach(k=>$(k).addEventListener('input',e=>{S[k]=e.target.value===''?0:+e.target.value;render();}));
 $('depositR').addEventListener('input',e=>{S.deposit=+e.target.value;render();});
@@ -713,6 +714,7 @@ $('prev').addEventListener('click',()=>go(cur-1));
 $('next').addEventListener('click',()=>go(cur+1));
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(idxOf(b.dataset.goto))));
 $('fsBtn').addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();});
+$('ctl').addEventListener('click',e=>{const b=e.target.closest('button'); if(b) b.blur();}); // 用滑鼠點完就放掉焦點，控制列才會照常自動隱藏
 document.addEventListener('keydown',e=>{
   if(e.altKey||e.ctrlKey||e.metaKey) return;
   const tg=e.target, tag=tg.tagName, inField=tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT';
