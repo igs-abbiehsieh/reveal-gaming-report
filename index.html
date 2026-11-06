@@ -153,10 +153,10 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 .sub{color:var(--mu);font-size:16px}
 .loss{color:var(--loss)} .gain{color:var(--gd)}
 .tables{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ct{width:100%;border-collapse:collapse;font-size:18.5px;border:1px solid var(--line)}
-.ct th{color:#fff;font-weight:700;padding:9px 10px;text-align:left;font-size:17.5px}
+.ct{width:100%;border-collapse:collapse;font-size:17px;border:1px solid var(--line)}
+.ct th{color:#fff;font-weight:700;padding:8px 10px;text-align:left;font-size:17.5px}
 .ct th.r,.ct td.r{text-align:right}
-.ct td{padding:0 10px;height:29px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ct td{padding:0 8px;height:27px;border-bottom:1px solid var(--line);white-space:nowrap}
 .ct td.ind{padding-left:20px}
 .ct .mut{color:var(--mu);font-size:14px}
 .ct tr.k td{background:var(--card);font-weight:700}
@@ -305,11 +305,6 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
       <button type="button" class="advbtn" id="advBtn">進階假設（倍數、費率、PS 條款）…</button>
     </div>
     <div class="res">
-      <div class="verdict" aria-live="polite">
-        <div><div class="who"><span class="dot" style="background:var(--slate)"></span>PS 月淨利</div><div class="big num" id="psNet"></div><div class="sub num" id="psSub"></div></div>
-        <div><div class="who"><span class="dot" style="background:var(--g)"></span>AW 月淨利</div><div class="big num" id="awNet"></div><div class="sub num" id="awSub"></div></div>
-        <div><div class="who">AW − PS</div><div class="big num" id="diff"></div><div class="sub" id="diffSub"></div></div>
-      </div>
       <div class="tables">
         <table class="ct"><thead><tr><th class="hps">PS｜Potent</th><th class="hps r">萬美元</th><th class="hps r">佔投注額</th></tr></thead><tbody id="psT"></tbody></table>
         <table class="ct"><thead><tr><th class="haw">AW｜AmWest</th><th class="haw r">萬美元</th><th class="haw r">佔投注額</th></tr></thead><tbody id="awT"></tbody></table>
@@ -464,12 +459,12 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 
 <script>
 // ===== 試算公式（與白牌計算器相同）
+const PS_COGS=[['Host Track Fees（賽道費）',0.07],['Game Provider Fees（遊戲商）',0.006],['Source Market Fees',0.0149],['Tote Fee',0.004],['Interface Tote Fees',0.0007],['North Dakota Tax（ND 稅）',0.0025],['Charity Payment（慈善）',0.0005]];
 function calc(p){
   const D=p.deposit;
   // ---- PS
   const pb=D*p.psBet, ph=pb*p.psPool, pg=ph*0.2008;
-  const pcLines=[['Host Track Fees',0.07],['Game Provider Fees',0.006],['Source Market Fees',0.0149],['Tote Fee',0.004],['Interface Tote Fees',0.0007],['North Dakota Tax',0.0025],['Charity Payment',0.0005]];
-  const pc=pcLines.reduce((a,[,r])=>a+ph*r,0), pgp=pg-pc;
+  const pc=PS_COGS.reduce((a,[,r])=>a+ph*r,0), pgp=pg-pc;
   const tiers=[[1e6,0.6],[5e6,0.7],[1e7,0.75],[Infinity,0.8]];
   let prev=0,pt=0;
   if(p.psCliff){const t=tiers.find(([cap])=>pgp<=cap); pt=pgp*t[1];}
@@ -522,31 +517,25 @@ function rows(list){return list.map(([lab,v,h,cls,tip])=>cls==='b'
 function render(){
   syncInputs();
   const p=P(S), r=calc(p), D=p.deposit||1, ps=r.ps, aw=r.aw;
-  const set=(id,v)=>{const el=$(id);el.textContent=wan(v);el.className='big num '+(v<0?'loss':'gain');};
-  set('psNet',ps.net); set('awNet',aw.net); set('diff',aw.net-ps.net);
-  const a100=aw.net/D*100, p100=ps.net/D*100, d=aw.net-ps.net;
-  const m100=v=>(v<0?'−$':'$')+Math.abs(v).toFixed(1);
-  $('psSub').textContent=`每 $100 入金淨賺 ${m100(p100)}`;
-  $('awSub').textContent=`每 $100 入金淨賺 ${m100(a100)}`+(p.staff?'':'（未含自建成本）');
-  const thr=p.staff+d; // 未扣自建成本時 AW 比 PS 多賺的錢 = 自建成本的上限
-  $('diffSub').textContent=thr>0?`AW 自建人力與系統月成本要低於 ${wan(thr)}，才比 PS 划算`+(p.staff?`（目前填 ${wan(p.staff)}）`:''):'就算不計自建成本，PS 也較划算';
   const hp=(v,h)=>h?v/h:0;
   const awTip=`${aw.byFloor>aw.byNgr?'投注額底限 0.5%':'NGR 12%'} 分潤 ${w2(aw.share)} 萬，扣除本月已列的年費／設定費後另付`;
   const psG=[
     [['入金 Cash In',D,null]],
     [[`Bet（入金 × ${+p.psBet.toFixed(2)}）`,ps.bet,null],[`Handle（Bet × ${+(p.psPool*100).toFixed(1)}%）`,ps.h,null,'k']],
     [['Takeout（抽水）',ps.ggr,hp(ps.ggr,ps.h),'k']],
-    [['－ 賽事／稅費等直接成本',ps.c,hp(ps.c,ps.h),'','賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%']],
+    PS_COGS.map(([n,r])=>['－ '+n,ps.h*r,r]),
     [['Gross Profit（可分潤）',ps.gp,hp(ps.gp,ps.h),'k']],
     [['→ Potent',ps.partner,hp(ps.partner,ps.h)]],
     [[`→ TaDa（${ps.gp>0?(ps.tada/ps.gp*100).toFixed(1):'60.0'}%）`,ps.tada,hp(ps.tada,ps.h),'t']],
-    [['－ 廣告費',p.ad,null],['－ 年費（月攤）',ps.annual,null],['－ 設定費（月攤）',ps.setup,null],['－ 活動、金流、刷退'+(p.psKyc?'、KYC':''),ps.var,null]],
+    [['－ 廣告費',p.ad,null],['－ 年費（月攤）',ps.annual,null],['－ 設定費（月攤）',ps.setup,null],['－ 獎金、活動',D*p.promo,null],['－ 刷退、詐欺',D*p.cb,null],
+      ...(p.psProc?[['－ 金流手續費',D*p.proc,null]]:[]),...(p.psKyc?[['－ KYC + Geolocation',p.kyc+p.geo,null]]:[])],
     [['淨利',ps.net,{m:ps.net/D},'n']]];
   const awG=[
     [['入金 Cash In',D,null]],
     [[`Bet（入金 × ${+p.awBet.toFixed(2)}）`,aw.bet,null],[`Handle（Bet × ${+(p.awPool*100).toFixed(1)}%）`,aw.h,null,'k']],
     [['Takeout（抽水）',aw.ggr,hp(aw.ggr,aw.h),'k']],
-    [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['Allocated GGR（遊戲商基底）',aw.ggr-aw.c,hp(aw.ggr-aw.c,aw.h),'k'],['－ 活動、金流、刷退、KYC',aw.pre,null]],
+    [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['Allocated GGR（遊戲商基底）',aw.ggr-aw.c,hp(aw.ggr-aw.c,aw.h),'k'],
+      ['－ 獎金、活動',D*p.promo,null],['－ 金流手續費',D*p.proc,null],['－ 刷退、詐欺',D*p.cb,null],['－ KYC + Geolocation',p.kyc+p.geo,null]],
     [['NGR（可分潤）',aw.ngr,hp(aw.ngr,aw.h),'k']],
     [['→ AmWest（分潤扣除已付）',aw.pay,hp(aw.pay,aw.h),'',awTip],[`→ 遊戲商（Allocated GGR × ${pctT(p.gpRate)}）`,aw.gpf,hp(aw.gpf,aw.h)]],
     [['→ TaDa',aw.tada,hp(aw.tada,aw.h),'t']],
