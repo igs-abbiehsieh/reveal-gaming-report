@@ -274,7 +274,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 <!-- 4 投注原理（圖） -->
 <section class="slide" id="demo" data-title="賽馬 PPGs：從儲值到遊玩">
   <div class="hd"><span class="no">4</span><h2>賽馬 PPGs：從儲值到遊玩</h2></div>
-  <iframe class="yt" id="ytf" src="https://www.youtube-nocookie.com/embed/fchfE9pHtBw?start=45&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1" title="Horseplay 101: How to Deposit, Buy Credits, and Play" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+  <iframe class="yt" id="ytf" src="https://www.youtube-nocookie.com/embed/fchfE9pHtBw?start=75&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1" title="Horseplay 101: How to Deposit, Buy Credits, and Play" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
   <p class="src">來源：Horseplay Games 官方 YouTube〈Horseplay 101: How to Deposit, Buy Credits, and Play〉。</p>
   <span class="pg">4</span>
 </section>
@@ -561,7 +561,7 @@ $('advBtn').addEventListener('click',()=>{$('adv').hidden=false;$('psBet').focus
 $('advClose').addEventListener('click',()=>{$('adv').hidden=true;$('advBtn').focus();});
 render();
 
-// ===== 第 4 頁影片：YouTube 原生播放器（段落、播放、暫停都用 YouTube 介面），從 0:45 起
+// ===== 第 4 頁影片：YouTube 原生播放器（段落、播放、暫停都用 YouTube 介面），從 1:15 起
 const ytf=$('ytf');
 function ytPause(){try{ytf.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:''}),'*');}catch(e){}}
 // 點過影片後鍵盤焦點會留在 YouTube 裡；1.5 秒後交還給簡報，方向鍵和簡報筆才能繼續翻頁
