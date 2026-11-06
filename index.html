@@ -155,7 +155,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 .ct{width:100%;border-collapse:collapse;font-size:18.5px;border:1px solid var(--line)}
 .ct th{color:#fff;font-weight:700;padding:9px 10px;text-align:left;font-size:17.5px}
 .ct th.r,.ct td.r{text-align:right}
-.ct td{padding:0 10px;height:31px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ct td{padding:0 10px;height:29px;border-bottom:1px solid var(--line);white-space:nowrap}
 .ct td.ind{padding-left:20px}
 .ct .mut{color:var(--mu);font-size:14px}
 .ct tr.k td{background:var(--card);font-weight:700}
@@ -319,8 +319,10 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
   <div class="adv" id="adv" hidden>
     <h3>進階假設</h3>
     <div class="advgrid">
-      <div class="f"><label for="psChurn">PS Handle 倍數</label><input type="number" id="psChurn" step="0.1" min="0"></div>
-      <div class="f"><label for="awChurn">AW Handle 倍數</label><input type="number" id="awChurn" step="0.1" min="0"></div>
+      <div class="f"><label for="psBet">PS Bet 倍數（Churn）</label><input type="number" id="psBet" step="0.1" min="0"></div>
+      <div class="f"><label for="psPool">PS 進彩池比例 %</label><input type="number" id="psPool" step="1" min="0" max="100"></div>
+      <div class="f"><label for="awBet">AW Bet 倍數（Churn）</label><input type="number" id="awBet" step="0.1" min="0"></div>
+      <div class="f"><label for="awPool">AW 進彩池比例 %</label><input type="number" id="awPool" step="1" min="0" max="100"></div>
       <div class="f"><label for="promo">獎金、活動 %（佔入金）</label><input type="number" id="promo" step="0.1" min="0"></div>
       <div class="f"><label for="cb">刷退、詐欺 %（佔入金）</label><input type="number" id="cb" step="0.1" min="0"></div>
       <div class="f"><label for="proc">金流費率 %（佔入金）</label><input type="number" id="proc" step="0.01" min="0"></div>
@@ -464,7 +466,7 @@ input[type=range]{width:100%;accent-color:var(--g);margin-top:10px}
 function calc(p){
   const D=p.deposit;
   // ---- PS
-  const ph=D*p.psChurn, pg=ph*0.2008;
+  const pb=D*p.psBet, ph=pb*p.psPool, pg=ph*0.2008;
   const pcLines=[['Host Track Fees',0.07],['Game Provider Fees',0.006],['Source Market Fees',0.0149],['Tote Fee',0.004],['Interface Tote Fees',0.0007],['North Dakota Tax',0.0025],['Charity Payment',0.0005]];
   const pc=pcLines.reduce((a,[,r])=>a+ph*r,0), pgp=pg-pc;
   const tiers=[[1e6,0.6],[5e6,0.7],[1e7,0.75],[Infinity,0.8]];
@@ -477,7 +479,7 @@ function calc(p){
   const psAnnual=p.psWaive?0:40000/12, psSetup=p.awYear2?0:(p.psSingle?50000:100000)/12, psFee=psAnnual+psSetup;
   const pn=pt-psVar-psFee-p.ad;
   // ---- AW
-  const ah=D*p.awChurn, ag=ah*0.0775, ac=ah*0.0166;
+  const ab=D*p.awBet, ah=ab*p.awPool, ag=ah*0.0775, ac=ah*0.0166;
   const aPre=D*(p.promo+p.proc+p.cb)+p.kyc+p.geo;
   const angr=ag-ac-aPre;
   const byNgr=angr*0.12, byFloor=ah*0.005, share=Math.max(byNgr,byFloor);
@@ -486,17 +488,17 @@ function calc(p){
   const awPay=Math.max(share-awAnnual-awSetup,0);
   const agp=(ag-ac)*p.gpRate, at=angr-awPay-agp;
   const an=at-p.ad-awAnnual-awSetup-p.staff;
-  return {D,ps:{h:ph,ggr:pg,c:pc,gp:pgp,tada:pt,partner:pp,var:psVar,annual:psAnnual,setup:psSetup,fee:psFee,net:pn},
-          aw:{h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,byNgr,byFloor,share,annual:awAnnual,setup:awSetup,pay:awPay,gpf:agp,tada:at,net:an}};
+  return {D,ps:{bet:pb,h:ph,ggr:pg,c:pc,gp:pgp,tada:pt,partner:pp,var:psVar,annual:psAnnual,setup:psSetup,fee:psFee,net:pn},
+          aw:{bet:ab,h:ah,ggr:ag,c:ac,pre:aPre,ngr:angr,byNgr,byFloor,share,annual:awAnnual,setup:awSetup,pay:awPay,gpf:agp,tada:at,net:an}};
 }
 
-const DEF={deposit:6000000,ad:800000,staff:0,psChurn:3.70,awChurn:8,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
+const DEF={deposit:6000000,ad:800000,staff:0,psBet:8.73,psPool:40,awBet:8,awPool:100,promo:4,cb:1.5,proc:2.4696,kyc:22000,geo:22000,gpRate:7,
   awYear2:false,psCliff:true,psProc:true,psSingle:false,psWaive:false,psKyc:false};
 let S=Object.assign({},DEF);   // 簡報用：每次打開都從預設情境開始，不記住上次的輸入
 const $=id=>document.getElementById(id);
-const numIds=['deposit','ad','staff','psChurn','awChurn','promo','cb','proc','gpRate','kyc','geo'];
+const numIds=['deposit','ad','staff','psBet','psPool','awBet','awPool','promo','cb','proc','gpRate','kyc','geo'];
 const chkIds=['psCliff','psProc','psSingle','psWaive','psKyc'];
-const P=s=>({deposit:+s.deposit||0,ad:+s.ad||0,staff:+s.staff||0,psChurn:+s.psChurn||0,awChurn:+s.awChurn||0,
+const P=s=>({deposit:+s.deposit||0,ad:+s.ad||0,staff:+s.staff||0,psBet:+s.psBet||0,psPool:(+s.psPool||0)/100,awBet:+s.awBet||0,awPool:(+s.awPool||0)/100,
   promo:(+s.promo||0)/100,cb:(+s.cb||0)/100,proc:(+s.proc||0)/100,gpRate:(+s.gpRate||0)/100,kyc:+s.kyc||0,geo:+s.geo||0,
   awYear2:!!s.awYear2,psCliff:!!s.psCliff,psProc:!!s.psProc,psSingle:!!s.psSingle,psWaive:!!s.psWaive,psKyc:!!s.psKyc});
 const w2=v=>(v<0?'−':'')+(Math.abs(v)/1e4).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -531,7 +533,7 @@ function render(){
   const awTip=`${aw.byFloor>aw.byNgr?'投注額底限 0.5%':'NGR 12%'} 分潤 ${w2(aw.share)} 萬，扣除本月已列的年費／設定費後另付`;
   const psG=[
     [['入金 Cash In',D,null]],
-    [[`Handle（入金 × ${p.psChurn}）`,ps.h,null,'k']],
+    [[`Bet（入金 × ${+p.psBet.toFixed(2)}）`,ps.bet,null],[`Handle（Bet × ${+(p.psPool*100).toFixed(1)}%）`,ps.h,null,'k']],
     [['Takeout（抽水）',ps.ggr,hp(ps.ggr,ps.h),'k']],
     [['－ 賽事／稅費等直接成本',ps.c,hp(ps.c,ps.h),'','賽道費 7%、遊戲商 0.6%、Source Market Fee 1.49%、Tote 0.4%、Interface Tote 0.07%、ND 稅 0.25%、慈善 0.05%']],
     [['Gross Profit（可分潤）',ps.gp,hp(ps.gp,ps.h),'k']],
@@ -541,7 +543,7 @@ function render(){
     [['淨利',ps.net,{m:ps.net/D},'n']]];
   const awG=[
     [['入金 Cash In',D,null]],
-    [[`Handle（入金 × ${p.awChurn}）`,aw.h,null,'k']],
+    [[`Bet（入金 × ${+p.awBet.toFixed(2)}）`,aw.bet,null],[`Handle（Bet × ${+(p.awPool*100).toFixed(1)}%）`,aw.h,null,'k']],
     [['Takeout（抽水）',aw.ggr,hp(aw.ggr,aw.h),'k']],
     [['－ 賽道、稅費等 COS',aw.c,hp(aw.c,aw.h)],['Allocated GGR（遊戲商基底）',aw.ggr-aw.c,hp(aw.ggr-aw.c,aw.h),'k'],['－ 活動、金流、刷退、KYC',aw.pre,null]],
     [['NGR（可分潤）',aw.ngr,hp(aw.ngr,aw.h),'k']],
@@ -561,7 +563,7 @@ document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('clic
 $('y1').addEventListener('click',()=>{S.awYear2=false;render();});
 $('y2').addEventListener('click',()=>{S.awYear2=true;render();});
 $('reset').addEventListener('click',()=>{S=Object.assign({},DEF);render();});
-$('advBtn').addEventListener('click',()=>{$('adv').hidden=false;$('psChurn').focus();});
+$('advBtn').addEventListener('click',()=>{$('adv').hidden=false;$('psBet').focus();});
 $('advClose').addEventListener('click',()=>{$('adv').hidden=true;$('advBtn').focus();});
 render();
 
